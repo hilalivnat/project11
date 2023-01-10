@@ -10,12 +10,11 @@ class BoggleGame:
     def __init__(self):
         self._game_model = GameModel()
         self._game_gui = GameGui()
-        self._i =0
 
     
     def start_new_game(self):
         board = self._game_model.get_board()
-        self._game_gui.create_board(board)   
+        self._game_gui.create_board(board, self._game_model.do_letter_clicked)   
         self._game_gui.run()
 
 

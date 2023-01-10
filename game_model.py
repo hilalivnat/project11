@@ -41,8 +41,9 @@ class GameModel:
         return False
 
     def do_letter_clicked(self, clicked_cell):
+        print('clicked_cell in do: ', clicked_cell)
         self.__current_path.append(clicked_cell)
-        return self._check_word_in_path()
+        return self._check_word_in_path(), self.get_score()
 
     def get_board(self):
         """
