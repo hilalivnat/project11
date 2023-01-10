@@ -1,7 +1,7 @@
 from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
-from ex11_helper import *
+from ex11_helper import open_words_file, word_in_path
 class GameModel:
     WORDS_DICT = open_words_file("boggle_dict.txt")
 
@@ -26,6 +26,7 @@ class GameModel:
         return cell in valid_next_steps(cell, 4, 4)
 
     def _check_word_in_path(self):
+        """ This method checks if the current cose path is a word in the words dictionary"""
         word_in_current_path = word_in_path(self.__board, self.__current_path)
         if word_in_current_path in self.__words_dict:
             self.__words_dict.remove(word_in_current_path)
@@ -38,7 +39,6 @@ class GameModel:
     def _do_letter_cell_clicked(self, clicked_cell):
         self.__current_path.append(clicked_cell)
         return self._check_word_in_path()
-
 
     def get_board(self):
         return copy.deepcopy(self.__board)
