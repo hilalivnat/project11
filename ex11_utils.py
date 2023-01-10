@@ -29,6 +29,14 @@ def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
 
 
 def check_path_valid(board: Board, board_height, board_width, path: Path):
+    """
+    This function checks that a given path is valid
+    :param board: game board
+    :param board_height: game board's height
+    :param board_width:
+    :param path:
+    :return:
+    """
     word = ""
     for cell_index in range(len(path)):
         if path[cell_index] in path[:cell_index]:
@@ -69,6 +77,7 @@ def is_cell_in_board(board_height, board_width, row_index, column_index):
     """
     return (0 <= row_index < board_height) and (0 <= column_index < board_width)
 
+
 def path_generator(board: Board, path_list: list, board_height, board_width, path, length, word, words, by_word_length):
     if not by_word_length and len(path) == length:
         if word in words:
@@ -84,11 +93,6 @@ def path_generator(board: Board, path_list: list, board_height, board_width, pat
             current_word = word + board[one_direction[0]][one_direction[1]]
             path_generator(board, path_list, board_height, board_width, path + [one_direction],length, current_word,words, by_word_length)
 
-def word_in_path(board: Board, path):
-    word = ""
-    for cell in path:
-        word += board[cell[0]][cell[1]]
-    return word
 
 def find_paths(n: int, board: Board, words: Iterable[str], by_word_length=False):
     board_height = len(board)
@@ -100,10 +104,10 @@ def find_paths(n: int, board: Board, words: Iterable[str], by_word_length=False)
             paths_from_cell = []
             start_point = [(row_index, column_index)]
             word = board[row_index][column_index]
-            # path_genarator_by_len(path_list, board_height, board_width, tart_point, n)
             path_generator(board, paths_from_cell, board_height, board_width, start_point, n, word, words, by_word_length)
             path_list += paths_from_cell
     return path_list
+
     
 if __name__ == "__main__":
     # print(valid_next_steps((3, 3)))

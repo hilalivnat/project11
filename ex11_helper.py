@@ -10,3 +10,12 @@ def open_words_file(index_file):
     # the next line cutting off "\n" from each line
     words = [one_line.replace("\n", '') for one_line in all_words]
     return set(words)
+
+
+def word_in_path(board, path):
+    word = ""
+    for cell in path:
+        word += board[cell[0]][cell[1]]
+    return word
+
+if __name__ == "__main__":
