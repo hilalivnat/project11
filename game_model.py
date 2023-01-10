@@ -9,12 +9,10 @@ class GameModel:
     def __init__(self, words_dict):
         self.__board = randomize_board()
         self.__score = 0
-        set: self.__words_dict = words_dict
+        self.__words_dict = words_dict
         self.__last_clicked = None
         self.__current_path = []
         GameModel.WORDS_DICT = words_dict
-
-    # def _do_cell_clicked(self, cell):
 
     def __str__(self):
         return "\n".join(str(line) for line in self.__board)
@@ -29,9 +27,16 @@ class GameModel:
         return cell in valid_next_steps(cell, 4, 4)
 
     def check_word_in_path(self):
-        word_in_path = word_in_path(self.__board, self.__current_path)
-        if word_in_path in self.__words_dict:
-            self.__words_dict.r
+        word_in_current_path = word_in_path(self.__board, self.__current_path)
+        if word_in_current_path in self.__words_dict:
+            self.__words_dict.remove(word_in_current_path)
+            points = len(self.__current_path) ** 2
+            self.__score += points
+            self.clear_choice()
+            return word_in_current_path
+        return False
+
+    def _do_letter_cell_clicked(self):
 
     def get_board(self):
         return copy.deepcopy(self.__board)
