@@ -33,8 +33,8 @@ def check_path_valid(board: Board, board_height, board_width, path: Path):
     This function checks that a given path is valid
     :param board: game board
     :param board_height: game board's height
-    :param board_width:
-    :param path:
+    :param board_width: game board's width
+    :param path: path on the board
     :return:
     """
     word = ""
