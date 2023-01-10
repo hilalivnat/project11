@@ -4,13 +4,13 @@ import copy
 
 class GameModel:
     _cur_cell: tuple
-    # _prev
-    _last_clicked: str
+
 
     def __init__(self, words_dict):
         self.__board = randomize_board()
         self.__score = 0
         self.__words_dict = words_dict
+        self.__last_clicked = None
 
     # def _do_cell_clicked(self, cell):
 

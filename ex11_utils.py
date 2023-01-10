@@ -80,24 +80,22 @@ def valid_next_steps(cell, board_height, board_width):
 
 
 def is_cell_in_board(board_height, board_width, row_index, column_index):
+    """
+    This function checks if a given cell is in a given board.
+    :param board_height: The board height
+    :param board_width: The board width
+    :param row_index:
+    :param column_index:
+    :return:
+    """
     return (0 <= row_index < board_height) and (0 <= column_index < board_width)
-
-
-# def path_genarator_by_len(path_list: list, board_height, board_width, path, length):
-#     if len(path) == length:
-#         path_list.append(path)
-#         return
-#     for one_direction in valid_next_steps(path[-1], board_height, board_width):
-#         if one_direction not in path:
-#             path_genarator_by_len(path_list, board_height, board_width, path + [one_direction], length)
-
 
 def path_generator(board: Board, path_list: list, board_height, board_width, path, length, word, words, by_word_length=False):
     if not by_word_length and len(path) == length:
         if word in words:
             path_list.append(path)
         return
-    if by_word_length and len(word) == length:
+    elif by_word_length and len(word) == length:
         if word in words:
             # path_list.append({"word": word, "path": path})
             path_list.append(path)
@@ -123,6 +121,6 @@ if __name__ == "__main__":
     # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     l = []
-    words = ["kkk", "CDF" , "CGI", "MT"]
+    words = ["kkk", "CDF", "CGI", "MT"]
     # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
     print(find_length_n_words(2, s, words))
