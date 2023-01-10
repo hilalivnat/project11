@@ -11,7 +11,7 @@ BUTTON_STYLE ={
     "font":("Asimon", 15),
     "bg":BTN_BG, 
     "fg": TEXT_COLOR, 
-    "width":4, 
+    "width":2, 
     "height":2
 }
 

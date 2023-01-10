@@ -11,25 +11,25 @@ class GameGui:
         # tkinter vars
         root = tkinter.Tk()
         root.title("Boogle")
-        root.geometry("600x600")
+        root.geometry("400x400")
         self.__root = root
 
         self._main_frame = tkinter.Frame(self.__root, width=100, height=100)
-        self._main_frame.grid(column=0, row=0, sticky=tkinter.NSEW)
+        self._main_frame.pack(fill=tkinter.BOTH, expand=True)
         
         self._title_label = tkinter.Label(self._main_frame, text="Boogle" ,**DISPLAY_WORD)
-        self._title_label.grid(row=0, column=0, sticky=tkinter.NSEW)
+        self._title_label.pack(fill=tkinter.BOTH, expand=True)
         
         # self._display_word = tkinter.Label(self._main_frame, text="",**DISPLAY_WORD)
         # self._display_word.grid(row=1, column=0)
         self._score_display = tkinter.Label(self._main_frame ,**DISPLAY_WORD)
-        self._score_display.grid(row=1, column=0, sticky=tkinter.NSEW)
+        self._score_display.pack(fill=tkinter.BOTH, expand=True)
 
         self._buttons_frame = tkinter.Frame(self._main_frame)
-        self._buttons_frame.grid(row=2, column=2, sticky=tkinter.NSEW)
+        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True)
         
         self._words_display = tkinter.Label(self._main_frame ,**FOUND_WORDS)
-        self._words_display.grid(row=3, column=2, sticky=tkinter.NSEW)
+        self._words_display.pack(fill=tkinter.BOTH, expand=True)
 
         self._buttons:Dict[tkinter.Button] = dict()
 
@@ -64,6 +64,8 @@ class GameGui:
             # tkinter.Grid.grid_configure(self._buttons_frame,column=4, row=4)
         for row_i, row in enumerate(board):
             for col_i, char in enumerate(row):
+                self._buttons_frame.grid_columnconfigure(col_i, weight=1, uniform="True")
+                self._buttons_frame.grid_rowconfigure(row_i, weight=1, uniform="True")
                 self._create_button((row_i, col_i), char, f)
 
 
