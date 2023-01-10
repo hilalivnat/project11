@@ -18,22 +18,28 @@ def find_length_n_paths(n: int, board: Board, words: Iterable[str]) -> List[Path
     path_list = []
     for row_index in range(board_height):
         for column_index in range(board_width):
-            path_genarator(path_list, board_height, board_width, [(row_index, column_index)], n)
-    valid_path_list = []
-    for one_path in path_list:
-        if word_in_path(board, one_path) in words:
-            valid_path_list.append(one_path)
-    return valid_path_list
+            paths_from_cell = []
+            start_point = [(row_index, column_index)]
+            word = board[row_index][column_index]
+            # path_genarator_by_len(path_list, board_height, board_width, tart_point, n)
+            path_generator(board, paths_from_cell, board_height, board_width, start_point, n, word, words)
+            path_list += paths_from_cell
+    return path_list
 
 
-# def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path]:
-#     board_height = len(board)
-#     board_width = len(board[0])
-#     path_list = []
-#     for row_index in range(board_height):
-#         for column_index in range(board_width):
-#             path_genarator_by_word(board: Board, path_list: list, board_height, board_width, path, length, word)
-#     pass
+def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path]:
+    # the next line creates a set of all the words in length n
+    board_height = len(board)
+    board_width = len(board[0])
+    paths_list = []
+    for row_index in range(board_height):
+        for column_index in range(board_width):
+            paths_from_cell = []
+            start_point = [(row_index, column_index)]
+            word = board[row_index][column_index]
+            path_generator(board, paths_from_cell, board_height, board_width, start_point, n, word, words, True)
+            paths_list += paths_from_cell
+    return paths_list
 
 
 def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
@@ -77,25 +83,29 @@ def is_cell_in_board(board_height, board_width, row_index, column_index):
     return (0 <= row_index < board_height) and (0 <= column_index < board_width)
 
 
-def path_genarator(path_list: list, board_height, board_width, path, length):
-    if len(path) == length:
-        path_list.append(path)
+# def path_genarator_by_len(path_list: list, board_height, board_width, path, length):
+#     if len(path) == length:
+#         path_list.append(path)
+#         return
+#     for one_direction in valid_next_steps(path[-1], board_height, board_width):
+#         if one_direction not in path:
+#             path_genarator_by_len(path_list, board_height, board_width, path + [one_direction], length)
+
+
+def path_generator(board: Board, path_list: list, board_height, board_width, path, length, word, words, by_word_length=False):
+    if not by_word_length and len(path) == length:
+        if word in words:
+            path_list.append(path)
         return
-    for one_direction in valid_next_steps(path[-1], board_height, board_width):
-        if one_direction not in path:
-            path_genarator(path_list, board_height, board_width, path + [one_direction], length)
-
-
-def path_genarator_by_word(board: Board, path_list: list, board_height, board_width, path, length, word):
-    if len(word) == length:
-        path_list.append({
-            "word": word,
-            "path": path})
+    if by_word_length and len(word) == length:
+        if word in words:
+            # path_list.append({"word": word, "path": path})
+            path_list.append(path)
         return
     for one_direction in valid_next_steps(path[-1], board_height, board_width):
         if one_direction not in path:
             current_word = word + board[one_direction[0]][one_direction[1]]
-            path_genarator_by_word(board, path_list, board_height, board_width, path + [one_direction],length, current_word)
+            path_generator(board, path_list, board_height, board_width, path + [one_direction],length, current_word,words, by_word_length)
 
 def word_in_path(board: Board, path):
     word = ""
@@ -113,5 +123,6 @@ if __name__ == "__main__":
     # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     l = []
-    path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
-    print(l)
+    words = ["kkk", "CDF" , "CGI", "MT"]
+    # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
+    print(find_length_n_words(2, s, words))
