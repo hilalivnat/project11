@@ -26,7 +26,7 @@ class GameModel:
     def check_next_step_valid(self, cell):
         return cell in valid_next_steps(cell, 4, 4)
 
-    def check_word_in_path(self):
+    def _check_word_in_path(self):
         word_in_current_path = word_in_path(self.__board, self.__current_path)
         if word_in_current_path in self.__words_dict:
             self.__words_dict.remove(word_in_current_path)
@@ -36,7 +36,10 @@ class GameModel:
             return word_in_current_path
         return False
 
-    def _do_letter_cell_clicked(self):
+    def _do_letter_cell_clicked(self, clicked_cell):
+        self.__current_path.append(clicked_cell)
+        return self._check_word_in_path()
+        
 
     def get_board(self):
         return copy.deepcopy(self.__board)
