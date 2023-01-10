@@ -3,14 +3,16 @@ from ex11_utils import *
 import copy
 
 class GameModel:
-    _cur_cell: tuple
+    WORDS_DICT: set
 
 
     def __init__(self, words_dict):
         self.__board = randomize_board()
         self.__score = 0
-        self.__words_dict = words_dict
+        set: self.__words_dict = words_dict
         self.__last_clicked = None
+        self.__current_path = []
+        GameModel.WORDS_DICT = words_dict
 
     # def _do_cell_clicked(self, cell):
 
@@ -19,7 +21,17 @@ class GameModel:
 
     def new_game(self):
         self.__board = randomize_board()
+        self.__words_dict = GameModel.WORDS_DICT
         self.__score = 0
+    def clear_choice(self):
+        self.__current_path = []
+    def check_next_step_valid(self, cell):
+        return cell in valid_next_steps(cell, 4, 4)
+
+    def check_word_in_path(self):
+        word_in_path = word_in_path(self.__board, self.__current_path)
+        if word_in_path in self.__words_dict:
+            self.__words_dict.r
 
     def get_board(self):
         return copy.deepcopy(self.__board)
