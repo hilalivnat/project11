@@ -1,18 +1,17 @@
 from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
-
+from ex11_helper import *
 class GameModel:
-    WORDS_DICT: set
+    WORDS_DICT = open_words_file("boggle_dict.txt")
 
 
     def __init__(self, words_dict):
         self.__board = randomize_board()
         self.__score = 0
-        self.__words_dict = words_dict
+        self.__words_dict = GameModel.WORDS_DICT
         self.__last_clicked = None
         self.__current_path = []
-        GameModel.WORDS_DICT = words_dict
 
     def __str__(self):
         return "\n".join(str(line) for line in self.__board)
@@ -39,7 +38,7 @@ class GameModel:
     def _do_letter_cell_clicked(self, clicked_cell):
         self.__current_path.append(clicked_cell)
         return self._check_word_in_path()
-        
+
 
     def get_board(self):
         return copy.deepcopy(self.__board)
