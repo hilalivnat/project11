@@ -5,8 +5,7 @@ from ex11_helper import *
 class GameModel:
     WORDS_DICT = open_words_file("boggle_dict.txt")
 
-
-    def __init__(self, words_dict):
+    def __init__(self):
         self.__board = randomize_board()
         self.__score = 0
         self.__words_dict = GameModel.WORDS_DICT
@@ -20,6 +19,7 @@ class GameModel:
         self.__board = randomize_board()
         self.__words_dict = GameModel.WORDS_DICT
         self.__score = 0
+
     def clear_choice(self):
         self.__current_path = []
     def check_next_step_valid(self, cell):
