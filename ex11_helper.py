@@ -19,3 +19,4 @@ def word_in_path(board, path):
     return word
 
 if __name__ == "__main__":
+    pass
