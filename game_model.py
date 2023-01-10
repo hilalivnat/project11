@@ -40,7 +40,7 @@ class GameModel:
             return word_in_current_path
         return False
 
-    def _do_letter_cell_clicked(self, clicked_cell):
+    def _do_letter_clicked(self, clicked_cell):
         self.__current_path.append(clicked_cell)
         return self._check_word_in_path()
 
