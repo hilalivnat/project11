@@ -17,3 +17,5 @@ def word_in_path(board, path):
     for cell in path:
         word += board[cell[0]][cell[1]]
     return word
+
+if __name__ == "__main__":

@@ -29,6 +29,14 @@ def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
 
 
 def check_path_valid(board: Board, board_height, board_width, path: Path):
+    """
+    This function checks that a given path is valid
+    :param board: game board
+    :param board_height: game board's height
+    :param board_width:
+    :param path:
+    :return:
+    """
     word = ""
     for cell_index in range(len(path)):
         if path[cell_index] in path[:cell_index]:
@@ -96,7 +104,6 @@ def find_paths(n: int, board: Board, words: Iterable[str], by_word_length=False)
             paths_from_cell = []
             start_point = [(row_index, column_index)]
             word = board[row_index][column_index]
-            # path_genarator_by_len(path_list, board_height, board_width, tart_point, n)
             path_generator(board, paths_from_cell, board_height, board_width, start_point, n, word, words, by_word_length)
             path_list += paths_from_cell
     return path_list
