@@ -57,6 +57,7 @@ class GameModel:
         return self.__score
 
 if __name__ == "__main__":
+    pass
 
 # c = randomize_board()
 # print("\n".join(str(line)for line in c))

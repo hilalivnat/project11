@@ -3,7 +3,7 @@ class GameGui:
     def __init__(self) -> None:
         root = tkinter.Tk()
         root.title("Boogle")
-        root.resizable(False, False)
+        # root.resizable(False, False)
         self.__root = root
         
         self._title_label = tkinter.Label(self.__root, text="Boogle", font=("Courier", 30))
