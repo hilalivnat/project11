@@ -58,7 +58,7 @@ class GameModel:
             last_cell = self.__current_path[-1]
         return cell in valid_next_steps(last_cell, 4, 4)
 
-    def _check_word_in_path(self) -> Union[str, bool]:
+    def _check_word_in_path(self) -> Optional[str]:
         """
         This method checks if the current chosen path is a word in the words dictionary
         :return: The word in the path, if it is in the words dictionary, False otherwise
@@ -74,9 +74,9 @@ class GameModel:
             self.__score += points
             self.clear_choice()  # Resets the current path selection.
             return word_in_current_path
-        return False
 
-    def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Union[str, bool], int]:
+
+    def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Optional[str], int]:
         """
         This method add the given cell to the current chosen and checks
         whether this cell has a letter that completes the selected path on
