@@ -1,3 +1,11 @@
+######################################################################
+# FILE: ex11_helper.py
+# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# Hila_Livnat, hilalivnat, 324862028
+# EXERCISE: intro2cs1 ex11 2023
+# DESCRIPTION: A program defines helper functions
+# for the class GameModel
+######################################################################
 def open_words_file(index_file):
     """
     This function gets a text file and returns its words in a set

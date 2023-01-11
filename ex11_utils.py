@@ -1,9 +1,27 @@
-from typing import List, Tuple, Iterable, Optional
+######################################################################
+# FILE: ex11_utils.py
+# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# Hila_Livnat, hilalivnat, 324862028
+# EXERCISE: intro2cs1 ex11 2023
+# DESCRIPTION: A program defines functions that
+# solves boggle games, using backtracking.
+######################################################################
+######################################################################
+# imports:
+from typing import List, Tuple, Iterable, Optional, Set
+######################################################################
+
+#####################
+# typing:
+#####################
 
 Board = List[List[str]]
 Path = List[Tuple[int, int]]
+Cell = Tuple[int, int]
 
-
+#####################
+# required functions:
+#####################
 def is_valid_path(board: Board, path: Path, words: Iterable[str]) -> Optional[str]:
     board_height = len(board)
     board_width = len(board[0])
@@ -25,10 +43,11 @@ def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
     pass
 
 
-###################################################
+#####################
+# helper functions:
+#####################
 
-
-def check_path_valid(board: Board, board_height, board_width, path: Path):
+def check_path_valid(board: Board, board_height: int, board_width: int, path: Path) -> Optional[str, bool]:
     """
     This function checks that a given path is valid
     :param board: game board
@@ -57,7 +76,7 @@ def check_path_valid(board: Board, board_height, board_width, path: Path):
     return word
 
 
-def valid_next_steps(cell, board_height, board_width):
+def valid_next_steps(cell: Cell, board_height: int, board_width: int) -> Set[Cell]:
     """
     This function returns all the cells that are in a valid direction for the next step from the given cell.
     :param cell: A tuple representing a cell coordinate
@@ -77,7 +96,7 @@ def valid_next_steps(cell, board_height, board_width):
     return next_steps
 
 
-def is_cell_in_board(board_height, board_width, row_index, column_index):
+def is_cell_in_board(board_height: int, board_width: int, row_index: int, column_index: int) -> bool:
     """
     This function checks if a given cell is in a given board.
     :param board_height: boards' height
@@ -92,7 +111,7 @@ def is_cell_in_board(board_height, board_width, row_index, column_index):
 def path_generator(board: Board, path_list: list,
                    board_height: int, board_width: int,
                    path: Path, length: int, word: str,
-                   words_set: set, by_word_length: bool):
+                   words_set: set, by_word_length: bool) -> List[Path]:
     """
     This function generates legal paths from one cell
     on the board that contains a word in the words' dictionary,
@@ -132,7 +151,7 @@ def path_generator(board: Board, path_list: list,
             path_generator(board, path_list, board_height, board_width, path + [one_direction],length, current_word,words_set, by_word_length)
 
 
-def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False):
+def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False) -> List[Path]:
     """
     This function finds all the legal paths on the board that
     contains a word in the words' dictionary, so that the length

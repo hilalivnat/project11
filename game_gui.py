@@ -1,7 +1,18 @@
+######################################################################
+# FILE: game_gui.py
+# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# Hila_Livnat, hilalivnat, 324862028
+# EXERCISE: intro2cs1 ex11 2023
+# DESCRIPTION: A program defines the class GameGui
+# that controls the GUI of boggle game.
+######################################################################
+######################################################################
+# imports:
 import tkinter
 import uuid
 from typing import *
 from styles import *
+######################################################################
 
 class GameGui:
     def __init__(self) -> None:
