@@ -9,7 +9,7 @@
 ######################################################################
 # imports:
 from typing import List, Tuple, Iterable, Optional, Set, Union
-
+import copy
 ######################################################################
 
 #####################
@@ -142,7 +142,7 @@ def is_cell_in_board(board_height: int, board_width: int, row_index: int, column
 def path_generator(board: Board, path_list: list,
                    board_height: int, board_width: int,
                    path: Path, length: int, word: str,
-                   words_set: set, by_word_length: bool) -> List[Path]:
+                   original_words_set: set, words_set: set, by_word_length: bool) -> List[Path]:
     """
     This function generates legal paths from one cell
     on the board that contains a word in the words' dictionary,
@@ -175,13 +175,18 @@ def path_generator(board: Board, path_list: list,
         if word in words:
             path_list.append(path)
         return
+
+        
     # the next lines adds a valid next cell to the path and updates the current word
     for one_direction in valid_next_steps(path[-1], board_height, board_width):
         if one_direction not in path:
+            prev_word_set = copy.deepcopy(words_set)
             current_word = word + board[one_direction[0]][one_direction[1]]
-            path_generator(board, path_list, board_height, board_width, path + [one_direction], length, current_word,
-                           words_set, by_word_length)
-
+            words_set = set([set_word for set_word  in words_set if current_word in set_word])
+            if len(words_set):
+                path_generator(board, path_list, board_height, board_width, path + [one_direction], length, current_word,
+                            original_words_set, words_set, by_word_length)
+            words_set = prev_word_set
 
 def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False) -> List[Path]:
     """
@@ -213,6 +218,7 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
             path_generator(board, paths_from_cell,
                            board_height, board_width,
                            start_point, length, word, words,
+                           words,
                            by_word_length)
             path_list += paths_from_cell
     return path_list
@@ -230,3 +236,4 @@ if __name__ == "__main__":
     words = ["kkk", "CDF", "CGI", "MT"]
     # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
     print(find_length_n_words(2, s, words))
+   
