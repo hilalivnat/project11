@@ -45,22 +45,27 @@ def is_valid_path(board: Board, path: Path, words: Iterable[str]) -> Optional[st
 
 def find_length_n_paths(n: int, board: Board, words: Iterable[str]) -> List[Path]:
     """
-
-    :param n:
-    :param board:
-    :param words:
-    :return:
+    This function finds and returns all the valid paths of length n
+    that describe words in the collection of words.
+    :param n: A positive integer, represents the length of the paths that need to be found.
+    :param board: Game board
+    :param words: Iterable contains collection of words
+    :return: A list of all valid paths of length n that
+    describe words in the collection of words.
     """
     return find_paths(n, board, words)
 
 
 def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path]:
     """
-
-    :param n:
-    :param board:
-    :param words:
-    :return:
+    This function finds and returns all the valid paths that describes words
+    in the collection of words that are of length n.
+    :param n: A positive integer, represents the
+    length of the words to be found.
+    :param board: Game board
+    :param words: Iterable contains collection of words
+    :return: A list of all valid paths describing words
+    in the collection of words that are of length n
     """
     return find_paths(n, board, words, True)
 
