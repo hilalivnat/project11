@@ -26,6 +26,8 @@ def word_in_path(board, path):
         word += board[cell[0]][cell[1]]
     return word
 
+def generate_score(score):
+    return f'Score: {score}'
 
 if __name__ == "__main__":
     pass

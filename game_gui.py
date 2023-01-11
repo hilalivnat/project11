@@ -12,6 +12,7 @@ import tkinter
 import uuid
 from typing import *
 from styles import *
+from ex11_helper import *
 
 
 ######################################################################
@@ -19,7 +20,7 @@ from styles import *
 class GameGui:
     def __init__(self) -> None:
         # helper variables
-        self._current_word = ""
+        
         self._found_words = []
         # tkinter vars
         root = tkinter.Tk()
@@ -33,10 +34,14 @@ class GameGui:
         self._title_label = tkinter.Label(self._main_frame, text="Boogle", **DISPLAY_WORD)
         self._title_label.pack(fill=tkinter.BOTH, expand=True)
 
-        self._display_word = tkinter.Label(self._main_frame, text="",**DISPLAY_WORD)
+        self._current_word = tkinter.StringVar(self._main_frame, "")
+
+        self._display_word = tkinter.Label(self._main_frame, textvariable=self._current_word,**DISPLAY_WORD)
         self._display_word.pack(fill=tkinter.BOTH, expand=True)
-       
-        self._score_display = tkinter.Label(self._main_frame, **DISPLAY_WORD)
+
+        self._game_score = tkinter.StringVar(self._main_frame, generate_score(0))
+
+        self._score_display = tkinter.Label(self._main_frame, textvariable=self._game_score, **DISPLAY_WORD)
         self._score_display.pack(fill=tkinter.BOTH, expand=True)
 
         self._buttons_frame = tkinter.Frame(self._main_frame)
@@ -65,16 +70,16 @@ class GameGui:
                 self._buttons[btn_id]["bg"] = "red"
                 self.__root.after(100,  self.return_to_regular_color(btn_id))
                 return
-            self._current_word += char
+            self._current_word.set(self._current_word.get() + char)
             self._buttons[btn_id]["state"] = "disabled"
             self._buttons[btn_id]["bg"] = DISABLED_COLOR
             word, score = res
             if word:
                 self._found_words.append(word)
-                self._current_word = ""
-                self.update_board(score)
+                self._current_word.set("")
+                self._game_score.set(generate_score(score))
+                self.update_board()
 
-            self._display_word["text"] = self._current_word
 
         return handler
 
@@ -97,8 +102,7 @@ class GameGui:
         
         def btn_clear_func():
             clear_f()
-            self._current_word =""
-            self._display_word["text"] = self._current_word
+            self._current_word.set("")
             self._return_buttons_to_normal_state()
             
         self._clear_btn["command"] = btn_clear_func
@@ -109,10 +113,9 @@ class GameGui:
             btn["state"] = "normal"
             btn["bg"] = BTN_BG
 
-    def update_board(self, score):
+    def update_board(self):
         self._return_buttons_to_normal_state()
         self._words_display["text"] = "found words:\n" + "\n".join(self._found_words)
-        self._score_display["text"] = f'Score: {score}'
 
 
 if __name__ == "__main__":
