@@ -24,7 +24,7 @@ class GameGui:
         # tkinter vars
         root = tkinter.Tk()
         root.title("Boggle")
-        root.geometry("400x400")
+        root.geometry("400x600")
         self.__root = root
 
         self._main_frame = tkinter.Frame(self.__root, width=100, height=100)
@@ -53,12 +53,22 @@ class GameGui:
     def run(self):
         self.__root.mainloop()
 
+    def return_to_regular_color(self, btn_id):
+        def handler():
+            self._buttons[btn_id]["bg"] = BTN_BG
+        return handler    
+
     def create_button_command(self, f, cell, char, btn_id):
         def handler():
+            res = f(cell)
+            if not bool(res):
+                self._buttons[btn_id]["bg"] = "red"
+                self.__root.after(100,  self.return_to_regular_color(btn_id))
+                return
             self._current_word += char
             self._buttons[btn_id]["state"] = "disabled"
             self._buttons[btn_id]["bg"] = DISABLED_COLOR
-            word, score = f(cell)
+            word, score = res
             if word:
                 self._found_words.append(word)
                 self._current_word = ""
