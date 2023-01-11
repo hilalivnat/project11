@@ -26,6 +26,7 @@ class GameModel:
         self.__board = randomize_board()
         self.__score = 0
         self.__words_dict = GameModel.WORDS_DICT
+        self.__found_words = list()
         self.__last_clicked = None
         self.__current_path = []
 
@@ -67,6 +68,7 @@ class GameModel:
             # The next line removes the word from the dictionary so that it cannot
             # be selected again in the current round of the game.
             self.__words_dict.remove(word_in_current_path)
+            self.__found_words.append(word_in_current_path)
             # The next line increases the score according to the squared length of the path
             points = len(self.__current_path) ** 2
             self.__score += points
@@ -87,6 +89,9 @@ class GameModel:
         print('clicked_cell in do: ', clicked_cell)
         self.__current_path.append(clicked_cell)
         return self._check_word_in_path(), self.get_score()
+    
+    def get_found_words(self):
+        return self.__found_words[:]
 
     def get_board(self) -> Board:
         """
