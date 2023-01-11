@@ -78,13 +78,15 @@ class GameModel:
 
     def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Optional[str], int]:
         """
-        This method add the given cell to the current chosen and checks
-        whether this cell has a letter that completes the selected path on
-        the board to a word from the word dictionary,
-        if so updates the game accordingly.
+        This method add the given cell to the current chosen path ,
+        if it is a valid cell for the path,
+        and checks whether this cell has a letter that
+        completes the selected path on the board to a word
+        from the word dictionary, if so updates the game accordingly.
         :param clicked_cell: A cell that the user clicked on.
-        :return: The word in the path, if it is in the words dictionary,
-        False otherwise, and the current score.
+        :return: The word in the current path, if it is in the words dictionary,
+        None otherwise, and the current score.
+        If the cell that clicked isit a legal choice, returns None.
         """
         if self._check_next_step_valid(clicked_cell):
             print('clicked_cell in do: ', clicked_cell)
