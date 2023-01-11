@@ -44,7 +44,7 @@ class GameModel:
         """ This method clears the current path choice"""
         self.__current_path = []
 
-    def check_next_step_valid(self, cell: Cell) -> bool:
+    def _check_next_step_valid(self, cell: Cell) -> bool:
         """
         This method checks if a given cell is a valid step from
         the last cell in the game's current chosen path.
@@ -86,10 +86,11 @@ class GameModel:
         :return: The word in the path, if it is in the words dictionary,
         False otherwise, and the current score.
         """
-        print('clicked_cell in do: ', clicked_cell)
-        self.__current_path.append(clicked_cell)
-        return self._check_word_in_path(), self.get_score()
-    
+        if self._check_next_step_valid(clicked_cell):
+            print('clicked_cell in do: ', clicked_cell)
+            self.__current_path.append(clicked_cell)
+            return self._check_word_in_path(), self.get_score()
+
     def get_found_words(self):
         return self.__found_words[:]
 
