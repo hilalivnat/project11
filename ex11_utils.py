@@ -8,7 +8,8 @@
 ######################################################################
 ######################################################################
 # imports:
-from typing import List, Tuple, Iterable, Optional, Set
+from typing import List, Tuple, Iterable, Optional, Set, Union
+
 ######################################################################
 
 #####################
@@ -19,23 +20,48 @@ Board = List[List[str]]
 Path = List[Tuple[int, int]]
 Cell = Tuple[int, int]
 
+
 #####################
 # required functions:
 #####################
 def is_valid_path(board: Board, path: Path, words: Iterable[str]) -> Optional[str]:
+    """
+    This function checks if a given path is a valid path that
+    describes a word that exists in the collection of words.
+    :param board: game board
+    :param path: A path of coordinates on the game board
+    :param words: iterable contains collection of words
+    :return: The word in the path, if the path is
+    valid and the word exists in the collection of words,
+    otherwise return None.
+    """
     board_height = len(board)
     board_width = len(board[0])
+    # The next line creates the word in the path if the path is valid
     word = check_path_valid(board, board_height, board_width, path)
     if word is not False and word in words:
         return word
 
 
-
 def find_length_n_paths(n: int, board: Board, words: Iterable[str]) -> List[Path]:
+    """
+
+    :param n:
+    :param board:
+    :param words:
+    :return:
+    """
     return find_paths(n, board, words)
 
 
 def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path]:
+    """
+
+    :param n:
+    :param board:
+    :param words:
+    :return:
+    """
     return find_paths(n, board, words, True)
 
 
@@ -47,7 +73,7 @@ def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
 # helper functions:
 #####################
 
-def check_path_valid(board: Board, board_height: int, board_width: int, path: Path) -> Optional[str, bool]:
+def check_path_valid(board: Board, board_height: int, board_width: int, path: Path) -> Union[str, bool]:
     """
     This function checks that a given path is valid
     :param board: game board
@@ -148,7 +174,8 @@ def path_generator(board: Board, path_list: list,
     for one_direction in valid_next_steps(path[-1], board_height, board_width):
         if one_direction not in path:
             current_word = word + board[one_direction[0]][one_direction[1]]
-            path_generator(board, path_list, board_height, board_width, path + [one_direction],length, current_word,words_set, by_word_length)
+            path_generator(board, path_list, board_height, board_width, path + [one_direction], length, current_word,
+                           words_set, by_word_length)
 
 
 def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False) -> List[Path]:
@@ -185,7 +212,7 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
             path_list += paths_from_cell
     return path_list
 
-    
+
 if __name__ == "__main__":
     # print(valid_next_steps((3, 3)))
     s = [['C', 'DF', 'Y', 'L'],

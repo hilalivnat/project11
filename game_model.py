@@ -15,7 +15,6 @@ from ex11_helper import open_words_file, word_in_path
 ######################################################################
 
 
-
 class GameModel:
     """ A class that defines and controls
     the logic part of the boggle game"""
@@ -58,7 +57,7 @@ class GameModel:
             last_cell = self.__current_path[-1]
         return cell in valid_next_steps(last_cell, 4, 4)
 
-    def _check_word_in_path(self) -> Optional[str, bool]:
+    def _check_word_in_path(self) -> Union[str, bool]:
         """
         This method checks if the current chosen path is a word in the words dictionary
         :return: The word in the path, if it is in the words dictionary, False otherwise
@@ -75,7 +74,7 @@ class GameModel:
             return word_in_current_path
         return False
 
-    def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Optional[str, bool], int]:
+    def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Union[str, bool], int]:
         """
         This method add the given cell to the current chosen and checks
         whether this cell has a letter that completes the selected path on
