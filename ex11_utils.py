@@ -169,12 +169,12 @@ def path_generator(board: Board, path_list: list,
     """
     # the next lines will run if the function called in the default mode
     if not by_word_length and len(path) == length:
-        if word in words:
+        if word in words_set:
             path_list.append(path)
         return
     # the next lines will run if the function called in "by_word_length" mode
     elif by_word_length and len(word) == length:
-        if word in words:
+        if word in words_set:
             path_list.append(path)
         return
 
@@ -239,10 +239,10 @@ if __name__ == "__main__":
          ['I', 'G', 'M', 'T'],
          ['M', 'T', 'A', 'N'],
          ['H', 'E', 'E', 'I']]
-    # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
+    print(find_length_n_paths(2, s, ["CFY", "GAI"]))
 
-    l = []
-    words = ["kkk", "CDF", "CGI", "MT"]
-    # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
-    print(find_length_n_words(2, s, words))
+    # l = []
+    # words = ["kkk", "CDF", "CGI", "MT"]
+    # # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
+    # print(find_length_n_words(2, s, words))
    
