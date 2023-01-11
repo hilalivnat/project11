@@ -191,6 +191,7 @@ def path_generator(board: Board, path_list: list,
                                words_set, by_word_length)
             words_set = prev_word_set
 
+
 def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False) -> List[Path]:
     """
     This function finds all the legal paths on the board that
@@ -217,7 +218,13 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
     else:
         words_set = set([word for word in words if len(word) >= length])
 
-    # The next lines adds to path_list all the valid paths from each cell on the board.
+    return find_paths_helper(board, board_height, board_width, path_list, words_set, length, by_word_length)
+
+
+def find_paths_helper(board: Board, board_height: int,
+                      board_width: int, path_list: List[Path],
+                      words_set: set, length: int,
+                      by_word_length: bool) -> List[Path]:
     for row_index in range(board_height):
         for column_index in range(board_width):
             paths_from_cell = []
@@ -232,14 +239,13 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
             path_list += paths_from_cell
     return path_list
 
-
 if __name__ == "__main__":
     # print(valid_next_steps((3, 3)))
     s = [['C', 'DF', 'Y', 'L'],
          ['I', 'G', 'M', 'T'],
          ['M', 'T', 'A', 'N'],
          ['H', 'E', 'E', 'I']]
-    print(find_length_n_paths(2, s, ["CFY", "GAI"]))
+    print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     # l = []
     # words = ["kkk", "CDF", "CGI", "MT"]
