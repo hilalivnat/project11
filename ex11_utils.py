@@ -155,6 +155,8 @@ def path_generator(board: Board, path_list: list,
     :param path: a list that contains the first cell in the path
     :param length: the length requested paths / the length of the requested words in the paths
     :param word: the letter in the first cell
+    :param original_words_set: a set of all the words in
+    dictionary that a current path contains there first letters
     :param words_set: a set of all the words in dictionary
     :param by_word_length: generate paths by word length - False in default
     :return: For searching by word length -
@@ -176,16 +178,17 @@ def path_generator(board: Board, path_list: list,
             path_list.append(path)
         return
 
-        
     # the next lines adds a valid next cell to the path and updates the current word
     for one_direction in valid_next_steps(path[-1], board_height, board_width):
         if one_direction not in path:
             prev_word_set = copy.deepcopy(words_set)
             current_word = word + board[one_direction[0]][one_direction[1]]
-            words_set = set([set_word for set_word  in words_set if current_word in set_word])
+            words_set = set([set_word for set_word in words_set if current_word in set_word])
             if len(words_set):
-                path_generator(board, path_list, board_height, board_width, path + [one_direction], length, current_word,
-                            original_words_set, words_set, by_word_length)
+                path_generator(board, path_list, board_height,
+                               board_width, path + [one_direction],
+                               length, current_word, original_words_set,
+                               words_set, by_word_length)
             words_set = prev_word_set
 
 def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=False) -> List[Path]:
@@ -208,17 +211,23 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
     board_height = len(board)
     board_width = len(board[0])
     path_list = []
-    words = set(words)  # So that search in the words dictionary will run in O(1) running time.
+    if by_word_length:
+
+        words_set = set([word for word in words if len(word) <= length])
+    else:
+        words_set = set([word for word in words if len(word) >= length])
+
     # The next lines adds to path_list all the valid paths from each cell on the board.
     for row_index in range(board_height):
         for column_index in range(board_width):
             paths_from_cell = []
             start_point = [(row_index, column_index)]
-            word = board[row_index][column_index]
+            current_word = board[row_index][column_index]
+            current_words_set = set([one_word for one_word in words_set if current_word in words_set])
             path_generator(board, paths_from_cell,
                            board_height, board_width,
-                           start_point, length, word, words,
-                           words,
+                           start_point, length, current_word, current_words_set,
+                           words_set,
                            by_word_length)
             path_list += paths_from_cell
     return path_list
