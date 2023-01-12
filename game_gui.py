@@ -31,7 +31,7 @@ class GameGui:
         self._main_frame = tkinter.Frame(self.__root, width=100, height=100)
         self._main_frame.pack(fill=tkinter.BOTH, expand=True)
 
-        self._title_label = tkinter.Label(self._main_frame, text="Boogle", **DISPLAY_WORD)
+        self._title_label = tkinter.Label(self._main_frame, text="Boggle", **DISPLAY_WORD)
         self._title_label.pack(fill=tkinter.BOTH, expand=True)
 
         self._current_word = tkinter.StringVar(self._main_frame, "")
