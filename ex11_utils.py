@@ -259,13 +259,26 @@ def path_score_generator(board: Board, path_dict: dict,
             path_dict[word] = path
     for one_direction in valid_next_steps(path[-1], board):
         if one_direction not in path:
+            prev_word_set = copy.deepcopy(words_set)
             current_word = word + board[one_direction[0]][one_direction[1]]
             words_set = set([set_word for set_word in words_set if current_word in set_word])
             if len(words_set):
-                path_score_generator(board, path_dict, path + [one_direction],
-                                     length, current_word, original_words_set: set, words_set)
-                words_set = prev_word_set
+                path_score_generator(board, path_dict,
+                                     path + [one_direction],
+                                     length, current_word,
+                                     original_words_set, words_set)
+            words_set = prev_word_set
 
+    # for one_direction in valid_next_steps(path[-1], board):
+    #     if one_direction not in path:
+    #         prev_word_set = copy.deepcopy(words_set)
+    #         current_word = word + board[one_direction[0]][one_direction[1]]
+    #         words_set = set([set_word for set_word in words_set if current_word in set_word])
+    #         if len(words_set):
+    #             path_generator(board, path_list, path + [one_direction],
+    #                            length, current_word, original_words_set,
+    #                            words_set, by_word_length)
+    #         words_set = prev_word_set
 
 
 if __name__ == "__main__":
