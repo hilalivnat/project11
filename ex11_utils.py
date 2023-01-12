@@ -296,13 +296,16 @@ if __name__ == "__main__":
     # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     # l = []
+    with open("boggle_dict.txt", 'r') as f:
+        all_words = f.readlines()
+        words = [one_line.replace("\n", '') for one_line in all_words]
     # wor = {"kkk", "CDF", "CGI", "MT"}
     # # # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
-    # # print(find_length_n_words(2, s, words))
-    # # print(is_valid_path(s, [(1, 2), (1, 3),(2,3)], words))
+    # print(find_length_n_words(3, s, words))
+    # print(is_valid_path(s, [(2, 0), (3, 1),(2,1)], words))
     # d = dict()
     # print(path_score_generator(s, d, [(0,0)],3, "C", wor, wor))
     # print(d)
-    # print(max_score_paths(s, wor))
+    # print(max_score_paths(s, words))
     # print(max_score_generator(s, d, wor, 3))
     # print(d)
