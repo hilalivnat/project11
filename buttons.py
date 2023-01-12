@@ -7,7 +7,6 @@ from ex11_helper import *
 class Buttons:
     def __init__(self, root) -> None:
         self._buttons_frame = tkinter.Frame(root)
-        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True, )
         
         self._buttons: Dict[uuid.UUID,tkinter.Button] = dict()
 
@@ -44,4 +43,15 @@ class Buttons:
         for btn in self._buttons.values():
             btn["state"] = "normal"
             btn["bg"] = BTN_BG
+
+    def load_buttons(self):
+        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True, )
+
+    def game_finished(self):
+        self._buttons_frame.pack_forget()
+        for button in self._buttons.values():
+            # button.grid_forget()
+            button.grid_remove()   
+        self._buttons = dict()    
+        
         

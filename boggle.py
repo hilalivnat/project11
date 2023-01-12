@@ -18,9 +18,14 @@ class BoggleGame:
         self._game_model = GameModel()
         self._game_gui = GameGui()
     
-    def start_new_game(self):
+    def create_new_game(self):
+        self._game_model.new_game()
         board = self._game_model.get_board()
-        self._game_gui.create_board(board, self._game_model.do_letter_clicked, self._game_model.clear_choice)   
+        self._game_gui.create_board(board, self._game_model.do_letter_clicked, self._game_model.clear_choice) 
+        self._game_gui.start_game()
+    
+    def start_new_game(self):
+        self._game_gui.init_gui(self.create_new_game)  
         self._game_gui.run()
 
 
