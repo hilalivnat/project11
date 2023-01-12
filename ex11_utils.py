@@ -247,27 +247,27 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
 
 def max_score_generator(board: Board, words: Iterable[str], max_len_word: int):
     pass
-def path_score_generator(board: Board, path_dict: dict,
-                         path: Path, length: int, word: str, original_words_set: set,
-                         words_set: set) -> dict[str: Path]:
-    path_length = len(path)
-    if path_length <= length and word in words:
-        if word in path_dict.keys():
-            if len(path_dict[word]) < path_length:
-                path_dict[word] = path
-        else:
-            path_dict[word] = path
-    for one_direction in valid_next_steps(path[-1], board):
-        if one_direction not in path:
-            prev_word_set = copy.deepcopy(words_set)
-            current_word = word + board[one_direction[0]][one_direction[1]]
-            words_set = set([set_word for set_word in words_set if current_word in set_word])
-            if len(words_set):
-                path_score_generator(board, path_dict,
-                                     path + [one_direction],
-                                     length, current_word,
-                                     original_words_set, words_set)
-            words_set = prev_word_set
+# def path_score_generator(board: Board, path_dict: dict,
+#                          path: Path, length: int, word: str, original_words_set: set,
+#                          words_set: set) -> dict[str: Path]:
+#     path_length = len(path)
+#     if path_length <= length and word in words:
+#         if word in path_dict.keys():
+#             if len(path_dict[word]) < path_length:
+#                 path_dict[word] = path
+#         else:
+#             path_dict[word] = path
+#     for one_direction in valid_next_steps(path[-1], board):
+#         if one_direction not in path:
+#             prev_word_set = copy.deepcopy(words_set)
+#             current_word = word + board[one_direction[0]][one_direction[1]]
+#             words_set = set([set_word for set_word in words_set if current_word in set_word])
+#             if len(words_set):
+#                 path_score_generator(board, path_dict,
+#                                      path + [one_direction],
+#                                      length, current_word,
+#                                      original_words_set, words_set)
+#             words_set = prev_word_set
 
     # for one_direction in valid_next_steps(path[-1], board):
     #     if one_direction not in path:
