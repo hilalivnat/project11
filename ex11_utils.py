@@ -69,8 +69,11 @@ def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path
 
 
 def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
-    # max_len_word = max([len(word) for word in words])
-    pass
+    max_len_word = max([len(word) for word in words])
+    path_dict = dict()
+    all_paths = max_score_generator(board, path_dict, set(words), max_len_word)
+    max_scored_paths = [[path for path in all_paths[words_path_dict]] for words_path_dict in all_paths.keys()]
+    return max_scored_paths
 
 
 #####################
@@ -249,34 +252,43 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
 
 
 ####################################################################################################last_function:
-# def max_score_generator(board: Board, words: Iterable[str], max_len_word: int):
-#     pass
-#
-# def path_score_generator(board: Board, path_dict: dict,
-#                          path: Path, length: int, word: str, original_words_set: set,
-#                          words_set: set):
-#     path_length = len(path)
-#     if path_length <= length and word in words_set:
-#         if word in path_dict.keys():
-#             if len(path_dict[word]) < path_length:
-#                 path_dict[word] = path
-#         else:
-#             path_dict[word] = path
-#         return
-#     if path_length > length:
-#         return
-#
-#     for one_direction in valid_next_steps(path[-1], board):
-#         if one_direction not in path:
-#             prev_word_set = copy.deepcopy(words_set)
-#             current_word = word + board[one_direction[0]][one_direction[1]]
-#             words_set = set([set_word for set_word in words_set if current_word in set_word])
-#             if len(words_set):
-#                 path_score_generator(board, path_dict,
-#                                      path + [one_direction],
-#                                      length, current_word,
-#                                      original_words_set, words_set)
-#             words_set = prev_word_set
+def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int):
+    for row_index in range(len(board)):
+        for column_index in range(len(board[row_index])):
+            paths_from_cell = dict()
+            start_point = [(row_index, column_index)]
+            current_word = board[row_index][column_index]
+            current_words_set = set([one_word for one_word in words_set if current_word in words_set])
+            path_score_generator(board, paths_from_cell, start_point,
+                                 max_len_word, current_word, words_set,
+                                 current_words_set)
+            path_dict = path_dict + paths_from_cell
+    return path_dict
+def path_score_generator(board: Board, path_dict: dict,
+                         path: Path, length: int, word: str, original_words_set: set,
+                         words_set: set):
+    path_length = len(path)
+    if path_length <= length and word in words_set:
+        if word in path_dict.keys():
+            if len(path_dict[word]) < path_length:
+                path_dict[word] = path
+        else:
+            path_dict[word] = path
+        return
+    elif path_length > length:
+        return
+
+    for one_direction in valid_next_steps(path[-1], board):
+        if one_direction not in path:
+            prev_word_set = copy.deepcopy(words_set)
+            current_word = word + board[one_direction[0]][one_direction[1]]
+            words_set = set([set_word for set_word in words_set if current_word in set_word])
+            if len(words_set):
+                path_score_generator(board, path_dict,
+                                     path + [one_direction],
+                                     length, current_word,
+                                     original_words_set, words_set)
+            words_set = prev_word_set
 ####################################################################################################last_function
 
 
@@ -290,10 +302,12 @@ if __name__ == "__main__":
     # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     # l = []
-    # wor = {"kkk", "CDF", "CGI", "MT"}
+    wor = {"kkk", "CDF", "CGI", "MT"}
     # # # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
     # # print(find_length_n_words(2, s, words))
     # # print(is_valid_path(s, [(1, 2), (1, 3),(2,3)], words))
     # d = dict()
     # print(path_score_generator(s, d, [(0,0)],3, "C", wor, wor))
+    # print(d)
+    print(max_score_paths(s, wor))
    
