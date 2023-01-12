@@ -56,9 +56,9 @@ class GameModel:
         else:
             # The next lines checks if the given cell is a legal move from the last cell in the path.
             last_cell = self.__current_path[-1]
-        return cell in valid_next_steps(last_cell, 4, 4)
+        return cell in valid_next_steps(last_cell, self.__board)
 
-    def _check_word_in_path(self) -> None:
+    def _check_word_in_path(self) -> bool:
         """
         This method checks if the current chosen path is a word in the words dictionary
         :return: The word in the path, if it is in the words dictionary, False otherwise
@@ -73,7 +73,8 @@ class GameModel:
             points = len(self.__current_path) ** 2
             self.__score += points
             self.clear_choice()  # Resets the current path selection.
-            # return word_in_current_path
+            return True
+        return False
 
 
     def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Optional[str], int]:
@@ -88,14 +89,16 @@ class GameModel:
         None otherwise, and the current score.
         If the cell that clicked isit a legal choice, returns None.
         """
+        update_found_words = None
         if self._check_next_step_valid(clicked_cell):
             print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
-            self._check_word_in_path()
-            return self.get_found_words(), self.get_score()
+            if self._check_word_in_path():
+                update_found_words = "\n".join(self.__found_words)
+            return update_found_words, self.get_score()
 
-    def get_found_words(self):
-        return "\n".join(self.__found_words)
+    # def get_found_words(self):
+    #     return "\n".join(self.__found_words)
 
     def get_board(self) -> Board:
         """
