@@ -56,7 +56,7 @@ class GameModel:
         else:
             # The next lines checks if the given cell is a legal move from the last cell in the path.
             last_cell = self.__current_path[-1]
-        return cell in valid_next_steps(last_cell, 4, 4)
+        return cell in valid_next_steps(last_cell, self.__board)
 
     def _check_word_in_path(self) -> None:
         """
@@ -91,7 +91,7 @@ class GameModel:
         if self._check_next_step_valid(clicked_cell):
             print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
-            self._check_word_in_path()
+            word_in_path = self._check_word_in_path()
             return self.get_found_words(), self.get_score()
 
     def get_found_words(self):
