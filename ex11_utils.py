@@ -8,7 +8,7 @@
 ######################################################################
 ######################################################################
 # imports:
-from typing import List, Tuple, Iterable, Optional, Set, Union
+from typing import List, Tuple, Iterable, Optional, Set, Union, Dict
 import copy
 ######################################################################
 
@@ -128,7 +128,7 @@ def valid_next_steps(cell: Cell, board: Board) -> Set[Cell]:
 
 def path_generator(board: Board, path_list: list,
                    path: Path, length: int, word: str,
-                   original_words_set: set, words_set: set, by_word_length: bool) -> List[Path]:
+                   original_words_set: set, words_set: set, by_word_length: bool) -> None:
     """
     This function generates legal paths from one cell
     on the board that contains a word in the words' dictionary,
@@ -240,7 +240,7 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
 
 
 ####################################################################################################last_function:
-def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int):
+def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int) -> Dict[str, Path]:
     for row_index in range(len(board)):
         for column_index in range(len(board[row_index])):
             paths_from_cell = dict()
@@ -260,7 +260,7 @@ def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_w
     return path_dict
 def path_score_generator(board: Board, path_dict: dict,
                          path: Path, length: int, word: str, original_words_set: set,
-                         words_set: set):
+                         words_set: set) -> None:
     path_length = len(path)
     if path_length <= length and word in words_set:
         if word in path_dict.keys():
