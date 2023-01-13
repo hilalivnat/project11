@@ -8,7 +8,7 @@
 ######################################################################
 ######################################################################
 # imports:
-from typing import List, Tuple, Iterable, Optional, Set, Union
+from typing import List, Tuple, Iterable, Optional, Set, Union, Dict
 import copy
 ######################################################################
 
@@ -72,7 +72,7 @@ def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
     max_len_word = max([len(word) for word in words])
     path_dict = dict()
     all_paths = max_score_generator(board, path_dict, set(words), max_len_word)
-    max_scored_paths = [[path for path in all_paths[words_path_dict]] for words_path_dict in all_paths.keys()]
+    max_scored_paths = [one_path for one_path in all_paths.values()]
     return max_scored_paths
 
 
@@ -126,21 +126,9 @@ def valid_next_steps(cell: Cell, board: Board) -> Set[Cell]:
     return next_steps
 
 
-# def is_cell_in_board(board_height: int, board_width: int, row_index: int, column_index: int) -> bool:
-#     """
-#     This function checks if a given cell is in a given board.
-#     :param board_height: boards' height
-#     :param board_width: boards' width
-#     :param row_index: The cell's row index
-#     :param column_index: The cell's column index
-#     :return: True if the cell is in the board, False otherwise
-#     """
-#     return (0 <= row_index < board_height) and (0 <= column_index < board_width)
-
-
 def path_generator(board: Board, path_list: list,
                    path: Path, length: int, word: str,
-                   original_words_set: set, words_set: set, by_word_length: bool) -> List[Path]:
+                   original_words_set: set, words_set: set, by_word_length: bool) -> None:
     """
     This function generates legal paths from one cell
     on the board that contains a word in the words' dictionary,
@@ -252,21 +240,27 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
 
 
 ####################################################################################################last_function:
-def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int):
+def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int) -> Dict[str, Path]:
     for row_index in range(len(board)):
         for column_index in range(len(board[row_index])):
             paths_from_cell = dict()
             start_point = [(row_index, column_index)]
             current_word = board[row_index][column_index]
-            current_words_set = set([one_word for one_word in words_set if current_word in words_set])
+            current_words_set = set([one_word for one_word in words_set if current_word in one_word])
             path_score_generator(board, paths_from_cell, start_point,
                                  max_len_word, current_word, words_set,
                                  current_words_set)
-            path_dict = path_dict + paths_from_cell
+
+            for one_word in paths_from_cell.keys():
+                if one_word in path_dict.keys():
+                    if len(paths_from_cell[one_word]) > len(path_dict[one_word]):
+                        path_dict[one_word] = paths_from_cell[one_word][:]
+                else:
+                    path_dict[one_word] = paths_from_cell[one_word]
     return path_dict
 def path_score_generator(board: Board, path_dict: dict,
                          path: Path, length: int, word: str, original_words_set: set,
-                         words_set: set):
+                         words_set: set) -> None:
     path_length = len(path)
     if path_length <= length and word in words_set:
         if word in path_dict.keys():
@@ -295,19 +289,23 @@ def path_score_generator(board: Board, path_dict: dict,
 if __name__ == "__main__":
     # print(valid_next_steps((3, 3)))
     s = [['C', 'DF', 'Y', 'L'],
-         ['I', 'G', 'M', 'T'],
+         ['D', 'F', 'M', 'T'],
          ['M', 'T', 'A', 'N'],
          ['H', 'E', 'E', 'I']]
     # print(is_cell_in_board1(s, 2, 0))
     # print(find_length_n_paths(3, s, ["CFY", "GAI"]))
 
     # l = []
-    wor = {"kkk", "CDF", "CGI", "MT"}
+    with open("boggle_dict.txt", 'r') as f:
+        all_words = f.readlines()
+        words = [one_line.replace("\n", '') for one_line in all_words]
+    # wor = {"kkk", "CDF", "CGI", "MT"}
     # # # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
-    # # print(find_length_n_words(2, s, words))
-    # # print(is_valid_path(s, [(1, 2), (1, 3),(2,3)], words))
+    # print(find_length_n_words(3, s, words))
+    # print(is_valid_path(s, [(2, 0), (3, 1),(2,1)], words))
     # d = dict()
     # print(path_score_generator(s, d, [(0,0)],3, "C", wor, wor))
     # print(d)
-    print(max_score_paths(s, wor))
-   
+    # print(max_score_paths(s, words))
+    # print(max_score_generator(s, d, wor, 3))
+    # print(d)
