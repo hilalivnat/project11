@@ -37,6 +37,7 @@ class GameModel:
         """ This method initialize a new game"""
         self.__board = randomize_board()
         self.__words_dict = GameModel.WORDS_DICT
+        self.__found_words = list()
         self.__score = 0
         self.__current_path = []
 
