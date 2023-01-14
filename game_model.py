@@ -12,6 +12,8 @@ from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
 from ex11_helper import open_words_file, word_in_path
+
+
 ######################################################################
 
 
@@ -77,8 +79,7 @@ class GameModel:
             return True
         return False
 
-
-    def do_letter_clicked(self, clicked_cell: Cell) -> Optional[Tuple[bool, str, int], None]:
+    def do_letter_clicked(self, clicked_cell: Cell) -> Optional[Tuple[bool, str, int]]:
         """
         This method add the given cell to the current chosen path ,
         if it is a valid cell for the path,
