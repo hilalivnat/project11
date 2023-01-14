@@ -34,7 +34,7 @@ class GameModel:
     #     return "\n".join(str(line) for line in self.__board)
 
     def new_game(self) -> None:
-        """ This method initialize a new game"""
+        """ This method initialize a new round of the game"""
         self.__board = randomize_board()
         self.__words_dict = GameModel.WORDS_DICT
         self.__found_words = list()
@@ -78,7 +78,7 @@ class GameModel:
         return False
 
 
-    def do_letter_clicked(self, clicked_cell: Cell) -> Tuple[Optional[str], int]:
+    def do_letter_clicked(self, clicked_cell: Cell) -> Optional[Tuple[bool, str, int], None]:
         """
         This method add the given cell to the current chosen path ,
         if it is a valid cell for the path,
