@@ -69,11 +69,21 @@ def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path
 
 
 def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
-    max_len_word = max([len(word) for word in words])
-    path_dict = dict()
-    all_paths = max_score_generator(board, path_dict, set(words), max_len_word)
-    max_scored_paths = [one_path for one_path in all_paths.values()]
-    return max_scored_paths
+    all_words_paths_list = []
+    for one_word in words:
+        len_word = len(one_word)
+        max_words_path = [[]]
+        for row_index in range(len(board)):
+            for column_index in range(len(board[row_index])):
+                start_point = [(row_index, column_index)]
+                current_word = board[row_index][column_index]
+                if current_word in one_word:
+                    max_path_generator(board, max_words_path, start_point, current_word, one_word)
+        if len_word > 1 and len(max_words_path[0]) > 1:
+            all_words_paths_list.append(max_words_path[0])
+        elif len(max_words_path[0]) == 1:
+            all_words_paths_list.append(max_words_path[0])
+    return all_words_paths_list
 
 
 #####################
@@ -236,54 +246,19 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
             return False
 
 
-
-
-
-####################################################################################################last_function:
-def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int) -> Dict[str, Path]:
-    for row_index in range(len(board)):
-        for column_index in range(len(board[row_index])):
-            paths_from_cell = dict()
-            start_point = [(row_index, column_index)]
-            current_word = board[row_index][column_index]
-            current_words_set = set([one_word for one_word in words_set if current_word in one_word])
-            path_score_generator(board, paths_from_cell, start_point,
-                                 max_len_word, current_word, words_set,
-                                 current_words_set)
-
-            for one_word in paths_from_cell.keys():
-                if one_word in path_dict.keys():
-                    if len(paths_from_cell[one_word]) > len(path_dict[one_word]):
-                        path_dict[one_word] = paths_from_cell[one_word][:]
-                else:
-                    path_dict[one_word] = paths_from_cell[one_word]
-    return path_dict
-def path_score_generator(board: Board, path_dict: dict,
-                         path: Path, length: int, word: str, original_words_set: set,
-                         words_set: set) -> None:
-    path_length = len(path)
-    if path_length <= length and word in words_set:
-        if word in path_dict.keys():
-            if len(path_dict[word]) < path_length:
-                path_dict[word] = path
-        else:
-            path_dict[word] = path
-        return
-    elif path_length > length:
+def max_path_generator(board: Board, path_list: list,
+                   path: Path, word: str, given_word: str) -> None:
+    if len(word) == len(given_word):
+        if len(path) > len(path_list[0]):
+            path_list[0] = path
         return
 
+    # the next lines adds a valid next cell to the path and updates the current word
     for one_direction in valid_next_steps(path[-1], board):
         if one_direction not in path:
-            prev_word_set = copy.deepcopy(words_set)
             current_word = word + board[one_direction[0]][one_direction[1]]
-            words_set = set([set_word for set_word in words_set if current_word in set_word])
-            if len(words_set):
-                path_score_generator(board, path_dict,
-                                     path + [one_direction],
-                                     length, current_word,
-                                     original_words_set, words_set)
-            words_set = prev_word_set
-####################################################################################################last_function
+            if current_word in given_word:
+                max_path_generator(board, path_list, path + [one_direction], current_word, given_word)
 
 
 if __name__ == "__main__":
