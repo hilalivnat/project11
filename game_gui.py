@@ -52,7 +52,8 @@ class GameGui:
         
         self._buttons: Buttons = Buttons(self.__root)
 
-        self._clear_btn = tkinter.Button(self._main_frame, text="Clear Word")
+        # bgimg= tkinter.PhotoImage(file = get_image_path("images\clear_botton.png"))
+        self._clear_btn = tkinter.Button(self._main_frame, text="clear")
         # self._clear_btn.pack(fill=tkinter.BOTH, expand=True)
 
         self._found_words = tkinter.StringVar(self.__root, "")
@@ -79,6 +80,7 @@ class GameGui:
         self._words_display.pack(fill=tkinter.BOTH, expand=True)
         self._buttons.load_buttons()
         self._timer.start_timer(True)
+        # 1000*60*3
         self.__root.after(1000*60*3, self.game_over)
         # self._game_entry.update_start_command(self.start_game)
 
@@ -111,8 +113,13 @@ class GameGui:
         self._buttons.return_buttons_to_normal_state()
 
     def game_over(self):
+        # bgimg= tkinter.PhotoImage(file = "images/game_over_screen.png")
         self._main_frame.pack_forget()
+        # self._start_game_frame.configure(i=bgimg)
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
+        self._game_score.set(generate_score(0))
+        self._found_words.set("")
+        self._current_word.set("")
         self._close_game.pack(expand=True)
         self._play_text.set("play again")
         self._buttons.game_finished()
