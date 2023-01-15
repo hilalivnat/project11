@@ -13,6 +13,7 @@ from typing import *
 from styles import *
 from ex11_helper import *
 from buttons import Buttons
+from timer import Timer
 
 
 ######################################################################
@@ -37,6 +38,8 @@ class GameGui:
         self._title_label.pack(fill=tkinter.BOTH, expand=True)
         # self._game_entry = GameEntry(self.__root,)
 
+        self._timer = Timer(self._main_frame)
+
         self._current_word = tkinter.StringVar(self._main_frame, "")
 
         self._display_word = tkinter.Label(self._main_frame, textvariable=self._current_word, **DISPLAY_WORD)
@@ -46,7 +49,7 @@ class GameGui:
 
         self._score_display = tkinter.Label(self._main_frame, textvariable=self._game_score, **DISPLAY_WORD)
         # self._score_display.pack(fill=tkinter.BOTH, expand=True)
-
+        
         self._buttons: Buttons = Buttons(self.__root)
 
         self._clear_btn = tkinter.Button(self._main_frame, text="Clear Word")
@@ -70,12 +73,13 @@ class GameGui:
     def start_game(self):
         self._start_game_frame.pack_forget() 
         self._main_frame.pack(fill=tkinter.BOTH, expand=True)
-        self._display_word.pack(fill=tkinter.BOTH, expand=True)
-        self._score_display.pack(fill=tkinter.BOTH, expand=True)
-        self._clear_btn.pack(fill=tkinter.BOTH, expand=True)
+        self._display_word.pack(expand=True)
+        self._score_display.pack(expand=True)
+        self._clear_btn.pack(expand=True)
         self._words_display.pack(fill=tkinter.BOTH, expand=True)
         self._buttons.load_buttons()
-        self.__root.after(5000, self.game_over)
+        self._timer.start_timer(True)
+        self.__root.after(1000*60*3, self.game_over)
         # self._game_entry.update_start_command(self.start_game)
 
 
