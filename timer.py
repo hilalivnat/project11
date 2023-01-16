@@ -8,9 +8,9 @@ class Timer:
     def __init__(self, main_frame) -> None:
         self._current_time = tkinter.StringVar(main_frame, INITIAL_TIME)
         self._timer_frame = tkinter.Label(main_frame, width=3, textvariable=self._current_time)
+        self._timer_frame.pack(fill="y" , expand=True)  
 
-    def start_timer(self, pack_timer=False):
-        if pack_timer: self._pack_timer_frame()
+    def start_timer(self):
         curr_time = self._current_time.get().split(":")
         user_input =int(curr_time[0])*60 + int(curr_time[1])  - 1
         mins,secs = divmod(user_input,60)
@@ -29,5 +29,3 @@ class Timer:
 
     
     
-    def _pack_timer_frame(self):
-        self._timer_frame.pack(fill=tkinter.BOTH, expand=True)  
