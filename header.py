@@ -6,7 +6,11 @@ from timer import Timer
 
 class Header:
     def __init__(self, main_frame) -> None:
-        self._header = tkinter.Frame(main_frame, width=50, height=50)
+        self._header = tkinter.Frame(main_frame, height=200)
+
+        self._logo_image = tkinter.PhotoImage(file="./assets/re_boggle_logo.png")
+        self._logo = tkinter.Label(self._header, image=self._logo_image)
+        self._logo.pack(expand=True)
 
         self._timer = Timer(self._header)
 

@@ -3,12 +3,12 @@ DISABLED_COLOR = "#45a9ba"
 BTN_BG = "#d5f9ff"
 
 MAIN_FRAME = {
-    "width":50, 
-    "height":50
+    # "width":50, 
+    # "height":50
 }
 
 DISPLAY_WORD ={
-    "font":("Asimon", 20),
+    "font":("Asimon", 15),
     "fg":TEXT_COLOR
 }
 
@@ -23,7 +23,7 @@ BUTTON_STYLE ={
 FOUND_WORDS = {
     "font":("Asimon", 15),
     "fg":TEXT_COLOR, 
-    "height":5
+    "height":3
 }
 
 START_GAME_BTN = {

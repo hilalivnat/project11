@@ -95,7 +95,7 @@ class GameModel:
             return found_new_word, self._get_found_words(), self.__score
 
     def _get_found_words(self):
-        return "\n".join(self.__found_words)
+        return ", ".join(self.__found_words)
 
     def get_board(self) -> Board:
         """
