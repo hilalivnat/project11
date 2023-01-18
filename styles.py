@@ -1,6 +1,7 @@
 TEXT_COLOR = "#052266"
 DISABLED_COLOR = "#45a9ba"
-BTN_BG = "#d5f9ff"
+BTN_BG = "#B4DDEC"
+INVALID_COLOR = "#E55959"
 
 MAIN_FRAME = {
     # "width":50, 

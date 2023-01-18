@@ -42,10 +42,10 @@ class GameGui:
         self._words_display = tkinter.Label(self._main_frame, textvariable=self._found_words, **FOUND_WORDS, background="white")
 
         self._yes_image = tkinter.PhotoImage(file="./assets/re_yes_button.png")
-        self._play_btn = tkinter.Button(self._start_game_frame, image=self._yes_image)
+        self._play_btn = tkinter.Button(self._start_game_frame, image=self._yes_image, background="white")
 
         self._no_image = tkinter.PhotoImage(file="./assets/re_no_button.png")
-        self._exit_btn = tkinter.Button(self._start_game_frame, image=self._no_image, command=lambda:self.__root.destroy())
+        self._exit_btn = tkinter.Button(self._start_game_frame, image=self._no_image, command=lambda:self.__root.destroy(), background="white")
         
     def init_gui(self, play_func):
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)

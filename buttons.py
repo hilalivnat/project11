@@ -6,9 +6,9 @@ from ex11_helper import *
 
 class Buttons:
     def __init__(self, root) -> None:
-        self._buttons_frame = tkinter.Frame(root)
+        self._buttons_frame = tkinter.Frame(root, pady=15, padx=15, background="white")
         
-        self._buttons: Dict[uuid.UUID,tkinter.Button] = dict()
+        self._buttons: Dict[uuid.UUID, tkinter.Button] = dict()
 
     def return_to_regular_color(self, btn_id):
         def handler():
@@ -20,7 +20,7 @@ class Buttons:
         def handler():
             res = model_handel_click(cell)
             if not bool(res):
-                self._buttons[btn_id]["bg"] = "red"
+                self._buttons[btn_id]["bg"] = INVALID_COLOR
                 self._buttons_frame.after(100,  self.return_to_regular_color(btn_id))
                 return
             self._buttons[btn_id]["state"] = "disabled"
@@ -45,7 +45,7 @@ class Buttons:
             btn["bg"] = BTN_BG
 
     def load_buttons(self):
-        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True,side=tkinter.BOTTOM )
+        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True, side=tkinter.BOTTOM)
 
     def game_finished(self):
         self._buttons_frame.pack_forget()

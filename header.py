@@ -23,7 +23,7 @@ class Header:
         self._score_display.pack(expand=True)
        
         self._clear_image = tkinter.PhotoImage(file="./assets/re_clear_button.png")
-        self._clear_btn = tkinter.Button(self._header, image=self._clear_image)
+        self._clear_btn = tkinter.Button(self._header, image=self._clear_image, background="white")
         self._clear_btn.pack(expand=True)
 
     def start_game(self):
