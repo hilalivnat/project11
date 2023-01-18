@@ -23,16 +23,12 @@ BUTTON_STYLE ={
 FOUND_WORDS = {
     "font":("Asimon", 15),
     "fg":TEXT_COLOR, 
-    "height":5, 
-    "width":2, 
+    
 }
 
 START_GAME_BTN = {
-    "font":("Asimon", 15),
-    "bg":BTN_BG, 
-    "fg": TEXT_COLOR, 
     "width":10, 
-    "height":2, 
+    "height":5, 
     "border": 0
 }
 

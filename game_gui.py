@@ -27,15 +27,12 @@ class GameGui:
         root.geometry("750x450")
         self.__root = root
 
-        self._game_template = tkinter.PhotoImage(file="./assets/game_template.png")
         self._main_frame = tkinter.Frame(self.__root)
         
-        # self._background_game = tkinter.Label(self._main_frame, image=self._game_template).pack(expand=True)
-
         self._start_photo = tkinter.PhotoImage(file="./assets/start_screen.png")
+        self._play_again_image = tkinter.PhotoImage(file="./assets/game_over_screen.png")
         self._start_game_frame = tkinter.Label(self.__root, image=self._start_photo)
         
-        self._play_text = tkinter.StringVar(self._start_game_frame, "play")
         self._header = Header(self._main_frame)
         
         self._buttons: Buttons = Buttons(self.__root)
@@ -43,13 +40,18 @@ class GameGui:
         self._found_words = tkinter.StringVar(self.__root, "")
         self._words_display = tkinter.Label(self._main_frame, textvariable=self._found_words, **FOUND_WORDS)
 
+        self._yes_image = tkinter.PhotoImage(file="./assets/re_yes_button.png")
+        self._play_btn = tkinter.Button(self._start_game_frame, image=self._yes_image,)
+
+        self._no_image = tkinter.PhotoImage(file="./assets/re_no_button.png")
+        self._exit_btn = tkinter.Button(self._start_game_frame, image=self._no_image, command=lambda:self.__root.destroy())
         
     def init_gui(self, play_func):
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
-        self._play_btn = tkinter.Button(self._start_game_frame, textvariable=self._play_text, command=play_func, **START_GAME_BTN)
+        self._play_btn["command"] = play_func
         self._play_btn.place(relx=0.4, rely=0.75)
 
-        self._close_game =  tkinter.Button(self._start_game_frame, text="exit")
+
     
     def run(self):
         self.__root.mainloop()
@@ -90,12 +92,13 @@ class GameGui:
 
     def game_over(self):
         self._main_frame.pack_forget()
+        self._play_btn.place(relx=0.3, rely=0.75)
+        self._exit_btn.place(relx=0.6, rely=0.75)
+        self._start_game_frame["image"] = self._play_again_image
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
         self._header.update_score(0)
         self._found_words.set("")
         self._header.clear_current_word()
-        self._close_game.pack(expand=True)
-        self._play_text.set("play again")
         self._buttons.game_finished()
 
 if __name__ == "__main__":
