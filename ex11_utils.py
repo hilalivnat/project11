@@ -69,11 +69,32 @@ def find_length_n_words(n: int, board: Board, words: Iterable[str]) -> List[Path
 
 
 def max_score_paths(board: Board, words: Iterable[str]) -> List[Path]:
-    max_len_word = max([len(word) for word in words])
-    path_dict = dict()
-    all_paths = max_score_generator(board, path_dict, set(words), max_len_word)
-    max_scored_paths = [one_path for one_path in all_paths.values()]
-    return max_scored_paths
+    """
+    This function returns a list of valid paths that provide
+    the maximum score for the buggle game for the given
+    board and collection of words.
+    :param board: Game board
+    :param words: Iterable contains collection of words
+    :return: A list of valid paths that provide the maximum
+    score for the given buggle game board and words.
+    """
+    all_words_paths_list = []
+    for one_word in words:
+        len_word = len(one_word)
+        max_words_path = [[]]
+        # For each word the next line will find the longest path on the board:
+        for row_index in range(len(board)):
+            for column_index in range(len(board[row_index])):
+                start_point = [(row_index, column_index)]
+                current_word = board[row_index][column_index]
+                if current_word in one_word:
+                    max_path_generator(board, max_words_path, start_point, current_word, one_word)
+        # The next line checks if max_words_path has changed, and updates all_words_paths_list
+        if len_word > 1 and len(max_words_path[0]) > 1:
+            all_words_paths_list.append(max_words_path[0])
+        elif len(max_words_path[0]) == 1:
+            all_words_paths_list.append(max_words_path[0])
+    return all_words_paths_list
 
 
 #####################
@@ -204,6 +225,23 @@ def find_paths(length: int, board: Board, words: Iterable[str], by_word_length=F
 def find_paths_helper(board: Board, path_list: List[Path],
                       words_set: set, length: int,
                       by_word_length: bool) -> List[Path]:
+    """
+    This function finds all the legal paths on the board that
+    contains a word in the words dictionary, so that the length
+    of the word or the path is the desired length.
+    :param board: game board
+    :param path_list: list of paths
+    :param words_set: A set of words
+    :param length: the length requested paths / the length of the requested words in the paths
+    :param by_word_length: generate paths by word length or not.
+    :return: For searching by word length -
+    return a list of all legal on the board that contains a word
+    in the given length that is in the words' dictionary.
+
+    For searching by path length -
+    return a list of all legal paths from on the board that
+    is in the given length and contains a word in the words' dictionary.
+    """
     for row_index in range(len(board)):
         for column_index in range(len(board[row_index])):
             paths_from_cell = []
@@ -236,54 +274,35 @@ def is_cell_in_board(board: Board, row_index: int, column_index: int) -> bool:
             return False
 
 
-
-
-
-####################################################################################################last_function:
-def max_score_generator(board: Board, path_dict: dict, words_set: set, max_len_word: int) -> Dict[str, Path]:
-    for row_index in range(len(board)):
-        for column_index in range(len(board[row_index])):
-            paths_from_cell = dict()
-            start_point = [(row_index, column_index)]
-            current_word = board[row_index][column_index]
-            current_words_set = set([one_word for one_word in words_set if current_word in one_word])
-            path_score_generator(board, paths_from_cell, start_point,
-                                 max_len_word, current_word, words_set,
-                                 current_words_set)
-
-            for one_word in paths_from_cell.keys():
-                if one_word in path_dict.keys():
-                    if len(paths_from_cell[one_word]) > len(path_dict[one_word]):
-                        path_dict[one_word] = paths_from_cell[one_word][:]
-                else:
-                    path_dict[one_word] = paths_from_cell[one_word]
-    return path_dict
-def path_score_generator(board: Board, path_dict: dict,
-                         path: Path, length: int, word: str, original_words_set: set,
-                         words_set: set) -> None:
-    path_length = len(path)
-    if path_length <= length and word in words_set:
-        if word in path_dict.keys():
-            if len(path_dict[word]) < path_length:
-                path_dict[word] = path
-        else:
-            path_dict[word] = path
-        return
-    elif path_length > length:
+def max_path_generator(board: Board, path_list: list, path: Path, word: str, given_word: str) -> None:
+    """
+    This function updates the given path_list to
+    the longest valid path on the board that creates
+    the given_word.
+    :param board: Game board
+    :param path_list: A list contains a valid path
+    for the given word in the board
+    :param path: A path of coordinates on the game board
+    :param word: The current word in the path on the board
+    :param given_word: One word to search for
+    valid paths that contains it
+    :return: None
+    """
+    if len(word) == len(given_word):
+        # The next line replace the current path in path_list if the found path is longer.
+        if len(path) > len(path_list[0]):
+            path_list[0] = path
         return
 
+    # The next lines adds a valid next cell to the path and updates the current word
     for one_direction in valid_next_steps(path[-1], board):
         if one_direction not in path:
-            prev_word_set = copy.deepcopy(words_set)
             current_word = word + board[one_direction[0]][one_direction[1]]
-            words_set = set([set_word for set_word in words_set if current_word in set_word])
-            if len(words_set):
-                path_score_generator(board, path_dict,
-                                     path + [one_direction],
-                                     length, current_word,
-                                     original_words_set, words_set)
-            words_set = prev_word_set
-####################################################################################################last_function
+            if current_word in given_word:
+                # Continue to check the next possibles cells for the words paths:
+                max_path_generator(board, path_list, path + [one_direction], current_word, given_word)
+
+
 
 
 if __name__ == "__main__":
@@ -299,13 +318,15 @@ if __name__ == "__main__":
     with open("boggle_dict.txt", 'r') as f:
         all_words = f.readlines()
         words = [one_line.replace("\n", '') for one_line in all_words]
-    # wor = {"kkk", "CDF", "CGI", "MT"}
+    # wor = sorted(["CDF", "CGI", "MT", "z"])
     # # # path_genarator_by_word(s, l, 4, 4, [(0,0)], 3, "C")
     # print(find_length_n_words(3, s, words))
     # print(is_valid_path(s, [(2, 0), (3, 1),(2,1)], words))
     # d = dict()
     # print(path_score_generator(s, d, [(0,0)],3, "C", wor, wor))
     # print(d)
-    # print(max_score_paths(s, words))
+    # l = max_score_paths(s, words)
+    # for a in l:
+    #     print(is_valid_path(s, a, words))
     # print(max_score_generator(s, d, wor, 3))
     # print(d)
