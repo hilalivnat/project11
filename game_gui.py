@@ -23,25 +23,26 @@ class GameGui:
 
         # tkinter vars
         root = tkinter.Tk()
+        root.wm_resizable(False, False)
         root.title("Boggle")
-        root.geometry("750x450")
+        root.geometry("750x650")
         self.__root = root
 
-        self._main_frame = tkinter.Frame(self.__root)
+        self._main_frame = tkinter.Frame(self.__root, background="white")
         
         self._start_photo = tkinter.PhotoImage(file="./assets/start_screen.png")
         self._play_again_image = tkinter.PhotoImage(file="./assets/game_over_screen.png")
-        self._start_game_frame = tkinter.Label(self.__root, image=self._start_photo)
+        self._start_game_frame = tkinter.Label(self.__root, image=self._start_photo, background="white")
         
         self._header = Header(self._main_frame)
         
         self._buttons: Buttons = Buttons(self.__root)
 
         self._found_words = tkinter.StringVar(self.__root, "")
-        self._words_display = tkinter.Label(self._main_frame, textvariable=self._found_words, **FOUND_WORDS)
+        self._words_display = tkinter.Label(self._main_frame, textvariable=self._found_words, **FOUND_WORDS, background="white")
 
         self._yes_image = tkinter.PhotoImage(file="./assets/re_yes_button.png")
-        self._play_btn = tkinter.Button(self._start_game_frame, image=self._yes_image,)
+        self._play_btn = tkinter.Button(self._start_game_frame, image=self._yes_image)
 
         self._no_image = tkinter.PhotoImage(file="./assets/re_no_button.png")
         self._exit_btn = tkinter.Button(self._start_game_frame, image=self._no_image, command=lambda:self.__root.destroy())
@@ -49,7 +50,7 @@ class GameGui:
     def init_gui(self, play_func):
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
         self._play_btn["command"] = play_func
-        self._play_btn.place(relx=0.4, rely=0.75)
+        self._play_btn.place(relx=0.4, rely=0.70)
 
 
     
@@ -92,8 +93,8 @@ class GameGui:
 
     def game_over(self):
         self._main_frame.pack_forget()
-        self._play_btn.place(relx=0.3, rely=0.75)
-        self._exit_btn.place(relx=0.6, rely=0.75)
+        self._play_btn.place(relx=0.35, rely=0.70)
+        self._exit_btn.place(relx=0.50, rely=0.70)
         self._start_game_frame["image"] = self._play_again_image
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
         self._header.update_score(0)

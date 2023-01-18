@@ -8,7 +8,7 @@ INITIAL_TIME = "03:00"
 class Timer:
     def __init__(self, main_frame) -> None:
         self._current_time = tkinter.StringVar(main_frame, INITIAL_TIME)
-        self._timer_frame = tkinter.Label(main_frame, textvariable=self._current_time, **DISPLAY_WORD)
+        self._timer_frame = tkinter.Label(main_frame, textvariable=self._current_time, **DISPLAY_WORD, background="white")
         self._timer_frame.pack(fill="y" , expand=True)  
 
     def start_timer(self):

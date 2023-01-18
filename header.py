@@ -6,20 +6,20 @@ from timer import Timer
 
 class Header:
     def __init__(self, main_frame) -> None:
-        self._header = tkinter.Frame(main_frame, height=200)
+        self._header = tkinter.Frame(main_frame, height=200, background="white")
 
         self._logo_image = tkinter.PhotoImage(file="./assets/re_boggle_logo.png")
-        self._logo = tkinter.Label(self._header, image=self._logo_image)
+        self._logo = tkinter.Label(self._header, image=self._logo_image, background="white")
         self._logo.pack(expand=True)
 
         self._timer = Timer(self._header)
 
         self._current_word = tkinter.StringVar(self._header, "")
-        self._display_word = tkinter.Label(self._header, textvariable=self._current_word, **DISPLAY_WORD)
+        self._display_word = tkinter.Label(self._header, textvariable=self._current_word, **DISPLAY_WORD, background="white")
         self._display_word.pack(expand=True)
         
         self._game_score = tkinter.StringVar(self._header, generate_score(0))
-        self._score_display = tkinter.Label(self._header, textvariable=self._game_score,  **DISPLAY_WORD)
+        self._score_display = tkinter.Label(self._header, textvariable=self._game_score,  **DISPLAY_WORD, background="white")
         self._score_display.pack(expand=True)
        
         self._clear_image = tkinter.PhotoImage(file="./assets/re_clear_button.png")
