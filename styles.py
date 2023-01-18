@@ -23,7 +23,7 @@ BUTTON_STYLE ={
 FOUND_WORDS = {
     "font":("Asimon", 15),
     "fg":TEXT_COLOR, 
-    "height":10, 
+    "height":5, 
     "width":2, 
 }
 
