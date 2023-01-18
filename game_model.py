@@ -32,9 +32,6 @@ class GameModel:
         self.__last_clicked = None
         self.__current_path = []
 
-    # def __str__(self):
-    #     return "\n".join(str(line) for line in self.__board)
-
     def new_game(self) -> None:
         """ This method initialize a new round of the game"""
         self.__board = randomize_board()
@@ -81,26 +78,24 @@ class GameModel:
 
     def do_letter_clicked(self, clicked_cell: Cell) -> Optional[Tuple[bool, str, int]]:
         """
-        This method add the given cell to the current chosen path ,
+        This method add the given cell to the current chosen path,
         if it is a valid cell for the path,
         and checks whether this cell has a letter that
         completes the selected path on the board to a word
         from the word dictionary, if so updates the game accordingly.
         :param clicked_cell: A cell that the user clicked on.
         :return: The word in the current path, if it is in the words dictionary,
-        None otherwise, and the current score.
-        If the cell that clicked isit a legal choice, returns None.
+        None otherwise, and the current found words and score.
+        If the cell that clicked isint a legal choice, returns None.
         """
-        update_found_words = None
         if self._check_next_step_valid(clicked_cell):
             print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
             found_new_word = self._check_word_in_path()
-            update_found_words = "\n".join(self.__found_words)
-            return found_new_word, update_found_words, self.get_score()
+            return found_new_word, self._get_found_words(), self.__score
 
-    # def get_found_words(self):
-    #     return "\n".join(self.__found_words)
+    def _get_found_words(self):
+        return "\n".join(self.__found_words)
 
     def get_board(self) -> Board:
         """
@@ -108,17 +103,13 @@ class GameModel:
         """
         return copy.deepcopy(self.__board)
 
-    def get_score(self) -> int:
-        """
-        :return: The current score
-        """
-        return self.__score
+    # def get_score(self) -> int:
+    #     """
+    #     :return: The current score
+    #     """
+    #     return self.__score
 
 
 if __name__ == "__main__":
     pass
 
-# c = randomize_board()
-# print("\n".join(str(line)for line in c))
-# path = [(0,0),(0,1),(0,2),(0,3),(1,0)]
-# print(check_path_valid(c, 4, 4 ,path))
