@@ -24,15 +24,17 @@ class GameGui:
         # tkinter vars
         root = tkinter.Tk()
         root.title("Boggle")
-        root.geometry("400x600")
+        root.geometry("750x450")
         self.__root = root
 
-        self._main_frame = tkinter.Frame(self.__root, width=100, height=100)
+        self._game_template = tkinter.PhotoImage(file="./assets/game_template.png")
+        self._main_frame = tkinter.Frame(self.__root)
+        
+        # self._background_game = tkinter.Label(self._main_frame, image=self._game_template).pack(expand=True)
 
-        self._title_label = tkinter.Label(self.__root, text="Boggle", **DISPLAY_WORD)
-        self._title_label.pack(fill=tkinter.BOTH, expand=True)
-
-        self._start_game_frame = tkinter.Frame(self.__root)
+        self._start_photo = tkinter.PhotoImage(file="./assets/start_screen.png")
+        self._start_game_frame = tkinter.Label(self.__root, image=self._start_photo)
+        
         self._play_text = tkinter.StringVar(self._start_game_frame, "play")
         self._header = Header(self._main_frame)
         
@@ -44,8 +46,8 @@ class GameGui:
         
     def init_gui(self, play_func):
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True,)
-        self._play_btn = tkinter.Button(self._start_game_frame, textvariable=self._play_text, command=play_func)
-        self._play_btn.pack(expand=True)
+        self._play_btn = tkinter.Button(self._start_game_frame, textvariable=self._play_text, command=play_func, **START_GAME_BTN)
+        self._play_btn.place(relx=0.4, rely=0.75)
 
         self._close_game =  tkinter.Button(self._start_game_frame, text="exit")
     
@@ -59,8 +61,6 @@ class GameGui:
         self._words_display.pack(fill=tkinter.BOTH, expand=True)
         self._buttons.load_buttons()
         self.__root.after(1000*60*3, self.game_over)
-
-
 
 
     def handel_btn_clicked(self, char, res):

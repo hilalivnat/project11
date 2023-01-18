@@ -45,7 +45,7 @@ class Buttons:
             btn["bg"] = BTN_BG
 
     def load_buttons(self):
-        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True, )
+        self._buttons_frame.pack(fill=tkinter.BOTH, expand=True,side=tkinter.BOTTOM )
 
     def game_finished(self):
         self._buttons_frame.pack_forget()

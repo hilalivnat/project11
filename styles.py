@@ -17,13 +17,23 @@ BUTTON_STYLE ={
     "bg":BTN_BG, 
     "fg": TEXT_COLOR, 
     "width":2, 
-    "height":2
+    "height":4
 }
 
 FOUND_WORDS = {
     "font":("Asimon", 15),
     "fg":TEXT_COLOR, 
-    "height":10
+    "height":10, 
+    "width":2, 
+}
+
+START_GAME_BTN = {
+    "font":("Asimon", 15),
+    "bg":BTN_BG, 
+    "fg": TEXT_COLOR, 
+    "width":10, 
+    "height":2, 
+    "border": 0
 }
 
 
