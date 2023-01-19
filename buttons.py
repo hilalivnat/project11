@@ -1,12 +1,21 @@
+######################################################################
+# FILE: buttons.py
+# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# Hila_Livnat, hilalivnat, 324862028
+# EXERCISE: intro2cs1 ex11 2023
+# DESCRIPTION: A program defines the buttons in the GUI.
+######################################################################
+######################################################################
+# imports:
 import tkinter
 import uuid
 from typing import *
 from styles import *
 from ex11_helper import *
-
+######################################################################
 class Buttons:
     def __init__(self, root) -> None:
-        self._buttons_frame = tkinter.Frame(root, pady=15, padx=15, background="white")
+        self._buttons_frame = tkinter.Frame(root, borderwidth=15, background=BACKGROUND_COLOR)
         
         self._buttons: Dict[uuid.UUID, tkinter.Button] = dict()
 

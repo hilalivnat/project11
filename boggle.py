@@ -13,18 +13,26 @@ from game_gui import GameGui
 ######################################################################
 
 
-class BoggleGame:    
+class BoggleGame:
+    """A class that defines and controls boggle game """
     def __init__(self):
+        """Initialize a new boggle game"""
         self._game_model = GameModel()
         self._game_gui = GameGui()
     
     def create_new_game(self):
+        """ This method combines the game model and GUI"""
         self._game_model.new_game()
         board = self._game_model.get_board()
-        self._game_gui.create_board(board, self._game_model.do_letter_clicked, self._game_model.clear_choice) 
+
+        self._game_gui.create_board(
+            board, self._game_model.do_letter_clicked,
+            self._game_model.clear_choice)
+
         self._game_gui.start_game()
     
     def start_new_game(self):
+        """ This method runs the boggle game"""
         self._game_gui.init_gui(self.create_new_game)  
         self._game_gui.run()
 

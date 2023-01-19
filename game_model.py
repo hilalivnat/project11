@@ -11,7 +11,7 @@
 from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
-from ex11_helper import open_words_file, word_in_path
+from ex11_helper import open_words_file
 
 
 ######################################################################
@@ -31,6 +31,7 @@ class GameModel:
         self.__found_words = list()
         self.__last_clicked = None
         self.__current_path = []
+        self.__current_word = ""
 
     def new_game(self) -> None:
         """ This method initialize a new round of the game"""
@@ -39,37 +40,45 @@ class GameModel:
         self.__found_words = list()
         self.__score = 0
         self.__current_path = []
+        self.__current_word = ""
 
     def clear_choice(self) -> None:
         """ This method clears the current path choice"""
         self.__current_path = []
+        self.__current_word = ""
 
     def _check_next_step_valid(self, cell: Cell) -> bool:
         """
-        This method checks if a given cell is a valid step from
-        the last cell in the game's current chosen path.
-        :param cell: The next cell the user wants to add to the current path.
-        :return: True if the cell can be chosen, False otherwise.
+        This method checks if a given cell is a valid step
+        from the last cell in the game's current chosen path.
+        :param cell: The next cell the user wants
+        to add to the current path.
+        :return: True if the cell can be chosen,
+        False otherwise.
         """
-        if len(self.__current_path) == 0:  # Any cell is valid for starting a new path
+        if len(self.__current_path) == 0:  # Any cell is valid for new path
             return True
         else:
-            # The next lines checks if the given cell is a legal move from the last cell in the path.
+            # The next lines checks if the given cell
+            # is a legal move from the last cell in the path.
             last_cell = self.__current_path[-1]
         return cell in valid_next_steps(last_cell, self.__board)
 
     def _check_word_in_path(self) -> bool:
         """
-        This method checks if the current chosen path is a word in the words dictionary
-        :return: The word in the path, if it is in the words dictionary, False otherwise
+        This method checks if the current chosen
+        path is a word in the words dictionary
+        :return: The word in the path, if it is
+        in the words dictionary, False otherwise
         """
-        word_in_current_path = word_in_path(self.__board, self.__current_path)
-        if word_in_current_path in self.__words_dict:
-            # The next line removes the word from the dictionary so that it cannot
-            # be selected again in the current round of the game.
-            self.__words_dict.remove(word_in_current_path)
-            self.__found_words.append(word_in_current_path)
-            # The next line increases the score according to the squared length of the path
+        word_in_path = self.__current_word
+        if word_in_path in self.__words_dict:
+            # The next line removes the word from the dictionary so that
+            # it cannot be chosen again in the current round of the game.
+            self.__words_dict.remove(word_in_path)
+            self.__found_words.append(word_in_path)
+            # The next line updates the score according
+            # to the squared length of the path
             points = len(self.__current_path) ** 2
             self.__score += points
             self.clear_choice()  # Resets the current path selection.
@@ -91,10 +100,14 @@ class GameModel:
         if self._check_next_step_valid(clicked_cell):
             print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
+            self.__current_word += self.__board[clicked_cell[0]][clicked_cell[1]]
             found_new_word = self._check_word_in_path()
             return found_new_word, self._get_found_words(), self.__score
 
     def _get_found_words(self):
+        """
+        :return: A string of all the found words in the game
+        """
         return ", ".join(self.__found_words)
 
     def get_board(self) -> Board:
@@ -103,13 +116,4 @@ class GameModel:
         """
         return copy.deepcopy(self.__board)
 
-    # def get_score(self) -> int:
-    #     """
-    #     :return: The current score
-    #     """
-    #     return self.__score
-
-
-if __name__ == "__main__":
-    pass
 

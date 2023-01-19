@@ -1,7 +1,27 @@
+######################################################################
+# FILE: styles.py
+# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# Hila_Livnat, hilalivnat, 324862028
+# EXERCISE: intro2cs1 ex11 2023
+# DESCRIPTION: A program defines styles constants for the game.
+######################################################################
+
+# images:
+START_SCREEN = "./assets/start_screen.png"
+GAME_OVER_SCREEN = "./assets/game_over_screen.png"
+BOGGLE_LOGO = "./assets/re_boggle_logo.png"
+CLEAR_BUTTON = "./assets/re_clear_button.png"
+YES_BUTTON = "./assets/re_yes_button.png"
+NO_BUTTON = "./assets/re_no_button.png"
+
+# colors:
 TEXT_COLOR = "#052266"
 DISABLED_COLOR = "#45a9ba"
 BTN_BG = "#B4DDEC"
 INVALID_COLOR = "#E55959"
+BACKGROUND_COLOR = "#EEFBFF"
+WHITE = "white"
+
 
 MAIN_FRAME = {
     # "width":50, 
