@@ -7,8 +7,8 @@
 ######################################################################
 
 # images:
-START_SCREEN = "./assets/start_screen.png"
-GAME_OVER_SCREEN = "./assets/game_over_screen.png"
+START_SCREEN = "./assets/start_screen2.png"
+GAME_OVER_SCREEN = "./assets/game_over_screen2.png"
 BOGGLE_LOGO = "./assets/re_boggle_logo.png"
 CLEAR_BUTTON = "./assets/re_clear_button.png"
 YES_BUTTON = "./assets/re_yes_button.png"

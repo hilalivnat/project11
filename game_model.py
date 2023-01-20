@@ -110,6 +110,7 @@ class GameModel:
         """
         return ", ".join(self.__found_words)
 
+
     def get_board(self) -> Board:
         """
         :return: Copy of the game's board

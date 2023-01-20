@@ -58,7 +58,7 @@ class GameGui:
     def init_gui(self, play_func):
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True)
         self._play_btn["command"] = play_func
-        self._play_btn.place(relx=0.4, rely=0.70)
+        self._play_btn.place(relx=0.43, rely=0.78)
 
     def run(self):
         self.__root.mainloop()
@@ -99,8 +99,8 @@ class GameGui:
 
     def game_over(self):
         self._main_frame.pack_forget()
-        self._play_btn.place(relx=0.35, rely=0.70)
-        self._exit_btn.place(relx=0.50, rely=0.70)
+        self._play_btn.place(relx=0.35, rely=0.78)
+        self._exit_btn.place(relx=0.50, rely=0.78)
         self._start_game_frame["image"] = self._play_again_image
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True)
         self._header.update_score(0)
