@@ -17,6 +17,8 @@ from timer import Timer
 ######################################################################
 
 class Header:
+    """a class that contains the game header"""
+    
     def __init__(self, main_frame) -> None:
         self._header = tkinter.Frame(main_frame,
                                      height=200,
@@ -52,18 +54,25 @@ class Header:
         self._clear_btn.pack(expand=True)
 
     def start_game(self):
+        """pack header and start timer"""
         self._header.pack(expand=True)
         self._timer.start_timer()
 
     def update_current_word(self, char):
+        """update presented word
+        param char: new character"""
         self._current_word.set(self._current_word.get() + char)
 
     def clear_current_word(self):
+        """clear presented word"""
         self._current_word.set("")
         print("curr", self._current_word.get())
 
     def update_score(self, score):
+        """update game score
+        param score: new score"""
         self._game_score.set(generate_score(score))
 
     def update_clear_btn_command(self, btn_clear_func):
+        """update clear btn's command"""
         self._clear_btn["command"] = btn_clear_func

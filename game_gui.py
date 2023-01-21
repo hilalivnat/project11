@@ -19,6 +19,7 @@ from header import Header
 ######################################################################
 
 class GameGui:
+    """a class that controls the gui parts in the game"""
     def __init__(self) -> None:
 
         # tkinter vars
@@ -56,14 +57,17 @@ class GameGui:
                                         background=WHITE)
 
     def init_gui(self, play_func):
+        """inits new game"""
         self._start_game_frame.pack(fill=tkinter.BOTH, expand=True)
         self._play_btn["command"] = play_func
         self._play_btn.place(relx=0.43, rely=0.78)
 
     def run(self):
+        """run program"""
         self.__root.mainloop()
 
     def start_game(self):
+        """start a new game - load all widgets"""
         self._start_game_frame.pack_forget()
         self._header.start_game()
         self._main_frame.pack(fill=tkinter.BOTH, expand=True)
@@ -72,15 +76,25 @@ class GameGui:
         self.__root.after(1000 * 60 * 3, self.game_over)
 
     def handel_btn_clicked(self, char, res):
+        """handel a button with character clicked
+        param char: character clicked
+        param res: response from game modal"""
         self._header.update_current_word(char)
         found_new_word, words, score = res
         if found_new_word:
             self._found_words.set(words)
             self._header.clear_current_word()
             self._header.update_score(score)
-            self.update_board()
+            self._buttons.return_buttons_to_normal_state()
 
+    
     def create_board(self, board, click_on_btn_f, clear_f):
+        """creates new board game
+        param board: game board from game modal
+        param click_on_btn_f: method from game model to
+                              handel char clicked
+        param clear_f: method from game model to
+                       handel clear btn clicked"""
         for row_i, row in enumerate(board):
             for col_i, char in enumerate(row):
                 self._buttons.create_button((row_i, col_i),
@@ -94,10 +108,9 @@ class GameGui:
 
         self._header.update_clear_btn_command(btn_clear_func)
 
-    def update_board(self):
-        self._buttons.return_buttons_to_normal_state()
 
     def game_over(self):
+        """unpack all elements and ask the user for new game"""
         self._main_frame.pack_forget()
         self._play_btn.place(relx=0.35, rely=0.78)
         self._exit_btn.place(relx=0.50, rely=0.78)
