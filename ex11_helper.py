@@ -9,6 +9,7 @@
 
 MAX_WORDS_LENGTH = 26
 
+
 def open_words_file(index_file):
     """
     This function gets a text file and returns its words in a set
@@ -30,14 +31,20 @@ def generate_score(score):
     """
     return f'Score: {score}'
 
+
 def generate_found_words(words):
+    """
+    This function creates a string of
+    all the found words
+    :param words: list of words
+    :return: a string of all the words,
+    including 7 words in each line.
+    """
     words_string = ""
     for i, word in enumerate(words):
-        if i>0 and i%5 == 0:
+        if i > 0 and i % 7 == 0:
             words_string += f'{word} \n'
         else:
-             words_string += f'{word}, '
+            words_string += f'{word}, '
 
-    return words_string               
-
-
+    return words_string

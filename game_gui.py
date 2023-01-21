@@ -48,7 +48,8 @@ class GameGui:
 
         self._yes_image = tkinter.PhotoImage(file=YES_BUTTON)
         self._play_btn = tkinter.Button(self._start_game_frame,
-                                        image=self._yes_image, background=WHITE)
+                                        image=self._yes_image,
+                                        background=WHITE)
 
         self._no_image = tkinter.PhotoImage(file=NO_BUTTON)
         self._exit_btn = tkinter.Button(self._start_game_frame,

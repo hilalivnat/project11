@@ -98,23 +98,19 @@ class GameModel:
         If the cell that clicked isint a legal choice, returns None.
         """
         if self._check_next_step_valid(clicked_cell):
-            print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
             self.__current_word += self.__board[clicked_cell[0]][clicked_cell[1]]
             found_new_word = self._check_word_in_path()
             return found_new_word, self._get_found_words(), self.__score
 
-    def _get_found_words(self):
+    def _get_found_words(self) -> str:
         """
         :return: A string of all the found words in the game
         """
         return generate_found_words(self.__found_words)
-
 
     def get_board(self) -> Board:
         """
         :return: Copy of the game's board
         """
         return copy.deepcopy(self.__board)
-
-
