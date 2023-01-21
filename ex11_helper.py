@@ -6,6 +6,9 @@
 # DESCRIPTION: A program defines helper functions
 # for the class GameModel
 ######################################################################
+
+MAX_WORDS_LENGTH = 26
+
 def open_words_file(index_file):
     """
     This function gets a text file and returns its words in a set
@@ -26,3 +29,15 @@ def generate_score(score):
     :return: string representing the score in the game.
     """
     return f'Score: {score}'
+
+def generate_found_words(words):
+    words_string = ""
+    for i, word in enumerate(words):
+        if i>0 and i%5 == 0:
+            words_string += f'{word} \n'
+        else:
+             words_string += f'{word}, '
+
+    return words_string               
+
+

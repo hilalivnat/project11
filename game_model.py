@@ -11,7 +11,7 @@
 from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
-from ex11_helper import open_words_file
+from ex11_helper import open_words_file, generate_found_words
 
 
 ######################################################################
@@ -108,7 +108,7 @@ class GameModel:
         """
         :return: A string of all the found words in the game
         """
-        return ", ".join(self.__found_words)
+        return generate_found_words(self.__found_words)
 
 
     def get_board(self) -> Board:
