@@ -68,7 +68,6 @@ class Header:
     def clear_current_word(self):
         """clear presented word"""
         self._current_word.set("")
-        # print("curr", self._current_word.get())
 
     def update_score(self, score):
         """update game score
