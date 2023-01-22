@@ -16,6 +16,7 @@ from ex11_helper import *
 class Buttons:
     """a class that controls all the character's buttons in the game"""
     def __init__(self, root) -> None:
+        """param root: frame container"""
         self._buttons_frame = tkinter.Frame(root, borderwidth=15, background=BACKGROUND_COLOR)
         
         self._buttons: Dict[uuid.UUID, tkinter.Button] = dict()

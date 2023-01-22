@@ -17,9 +17,11 @@ from timer import Timer
 ######################################################################
 
 class Header:
-    """a class that contains the game header"""
+    """a class that contains the game header
+    contains: timer, current_word, game score"""
     
     def __init__(self, main_frame) -> None:
+        """param main_frame: reference to the main frame container"""
         self._header = tkinter.Frame(main_frame,
                                      height=200,
                                      background=BACKGROUND_COLOR)

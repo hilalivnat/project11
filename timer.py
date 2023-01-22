@@ -19,6 +19,7 @@ INITIAL_TIME = "03:00"
 class Timer:
     """a class that controls game timer"""
     def __init__(self, main_frame) -> None:
+        """param main_frame: reference to container"""
         self._current_time = tkinter.StringVar(main_frame, INITIAL_TIME)
         self._timer_frame = tkinter.Label(main_frame,
                                           textvariable=self._current_time,
