@@ -9,18 +9,6 @@
 
 MAX_WORDS_LENGTH = 26
 
-def open_words_file(index_file):
-    """
-    This function gets a text file and returns its words in a set
-    :param index_file: Name of a text file that contains words
-    :return: A set with all the words in the file
-    """
-    with open(index_file, 'r') as f:
-        all_words = f.readlines()
-    # the next line cutting off "\n" from each line
-    words = [one_line.replace("\n", '') for one_line in all_words]
-    return set(words)
-
 
 def generate_score(score):
     """
@@ -29,15 +17,5 @@ def generate_score(score):
     :return: string representing the score in the game.
     """
     return f'Score: {score}'
-
-def generate_found_words(words):
-    words_string = ""
-    for i, word in enumerate(words):
-        if i>0 and i%5 == 0:
-            words_string += f'{word} \n'
-        else:
-             words_string += f'{word}, '
-
-    return words_string               
 
 

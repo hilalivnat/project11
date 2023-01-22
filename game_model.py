@@ -11,10 +11,21 @@
 from boggle_board_randomizer import *
 from ex11_utils import *
 import copy
-from ex11_helper import open_words_file, generate_found_words
+# from ex11_helper import open_words_file, generate_found_words
 
 
 ######################################################################
+def open_words_file(index_file):
+    """
+    This function gets a text file and returns its words in a set
+    :param index_file: Name of a text file that contains words
+    :return: A set with all the words in the file
+    """
+    with open(index_file, 'r') as f:
+        all_words = f.readlines()
+    # the next line cutting off "\n" from each line
+    words = [one_line.replace("\n", '') for one_line in all_words]
+    return set(words)
 
 
 class GameModel:
@@ -85,7 +96,8 @@ class GameModel:
             return True
         return False
 
-    def do_letter_clicked(self, clicked_cell: Cell) -> Optional[Tuple[bool, str, int]]:
+    def do_letter_clicked(self, clicked_cell: Cell) \
+            -> Optional[Tuple[bool, str, int]]:
         """
         This method add the given cell to the current chosen path,
         if it is a valid cell for the path,
@@ -93,23 +105,30 @@ class GameModel:
         completes the selected path on the board to a word
         from the word dictionary, if so updates the game accordingly.
         :param clicked_cell: A cell that the user clicked on.
-        :return: The word in the current path, if it is in the words dictionary,
-        None otherwise, and the current found words and score.
+        :return: The word in the current path, if it is in the words
+        dictionary, None otherwise, and the current found words and score.
         If the cell that clicked isint a legal choice, returns None.
         """
         if self._check_next_step_valid(clicked_cell):
-            print('clicked_cell in do: ', clicked_cell)
             self.__current_path.append(clicked_cell)
-            self.__current_word += self.__board[clicked_cell[0]][clicked_cell[1]]
+            self.__current_word += \
+                self.__board[clicked_cell[0]][clicked_cell[1]]
             found_new_word = self._check_word_in_path()
             return found_new_word, self._get_found_words(), self.__score
 
-    def _get_found_words(self):
+    def _get_found_words(self) -> str:
         """
-        :return: A string of all the found words in the game
+        :return: A string of all the found words in the game, including 7
+        words in each line.
         """
-        return generate_found_words(self.__found_words)
+        words_string = ""
+        for i, word in enumerate(self.__found_words):
+            if i > 0 and i % 7 == 0:
+                words_string += f'{word} \n'
+            else:
+                words_string += f'{word}, '
 
+        return words_string
 
     def get_board(self) -> Board:
         """
