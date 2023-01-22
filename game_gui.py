@@ -11,7 +11,6 @@
 import tkinter
 from typing import *
 from styles import *
-from ex11_helper import generate_score
 from buttons import Buttons
 from header import Header
 

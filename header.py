@@ -10,12 +10,18 @@
 import tkinter
 from typing import *
 from styles import *
-from ex11_helper import *
 from timer import Timer
 
 
 ######################################################################
-
+def generate_score(score):
+    """
+    This function displays the score of the game
+    :param score: int representing the score in the game.
+    :return: string representing the score in the game.
+    """
+    return f'Score: {score}'
+    
 class Header:
     """a class that contains the game header
     contains: timer, current_word, game score"""

@@ -11,7 +11,6 @@ import tkinter
 import uuid
 from typing import *
 from styles import *
-from ex11_helper import *
 ######################################################################
 class Buttons:
     """a class that controls all the character's buttons in the game"""
