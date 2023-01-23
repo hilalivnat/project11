@@ -16,7 +16,8 @@ class Buttons:
     """a class that controls all the character's buttons in the game"""
     def __init__(self, root) -> None:
         """param root: frame container"""
-        self._buttons_frame = tkinter.Frame(root, borderwidth=15, background=BACKGROUND_COLOR)
+        self._buttons_frame = tkinter.Frame(root, borderwidth=15,
+                                            background=BACKGROUND_COLOR)
         
         self._buttons: Dict[uuid.UUID, tkinter.Button] = dict()
 
@@ -83,8 +84,7 @@ class Buttons:
         """handel buttons when the game is over"""
         self._buttons_frame.pack_forget()
         for button in self._buttons.values():
-            # button.grid_forget()
-            button.grid_remove()   
+            button.grid_remove()
         self._buttons = dict()    
         
         
