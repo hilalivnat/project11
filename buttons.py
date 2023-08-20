@@ -1,6 +1,6 @@
 ######################################################################
 # FILE: buttons.py
-# WRITERS: Michal_Caduri, michal.caduri, 213088735
+# WRITERS: Michal_Caduri, michal.caduri
 # Hila_Livnat, hilalivnat, 324862028
 # EXERCISE: intro2cs1 ex11 2023
 # DESCRIPTION: A program defines the buttons in the GUI.
