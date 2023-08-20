@@ -1,7 +1,7 @@
 ######################################################################
 # FILE: game_gui.py
-# WRITERS: Michal_Caduri, michal.caduri, 213088735
-# Hila_Livnat, hilalivnat, 324862028
+# WRITERS: Michal_Caduri, michal.caduri
+# Hila_Livnat, hilalivnat
 # EXERCISE: intro2cs1 ex11 2023
 # DESCRIPTION: A program defines the class GameGui
 # that controls the GUI of boggle game.
